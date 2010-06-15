@@ -6,6 +6,7 @@
     <th>End</th>
     <th>Machine</th>
     <th>User</th>
+    <th>Booking</th>
     <th></th>
     <th></th>
     <th></th>
@@ -17,6 +18,7 @@
     <td><%= reservation.end %></td>
     <td><%= reservation.machine_id %></td>
     <td><%= reservation.user_id %></td>
+    <td><%= reservation.booking_id %></td>
     <td><%= link_to 'Show', reservation %></td>
     <td><%= link_to 'Edit', edit_reservation_path(reservation) %></td>
     <td><%= link_to 'Destroy', reservation, :confirm => 'Are you sure?', :method => :delete %></td>

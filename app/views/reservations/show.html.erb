@@ -20,6 +20,11 @@
   <%= @reservation.user_id %>
 </p>
 
+<p>
+  <b>Booking:</b>
+  <%= @reservation.booking_id %>
+</p>
+
 
 <%= link_to 'Edit', edit_reservation_path(@reservation) %> |
 <%= link_to 'Back', reservations_path %>

@@ -1,7 +1,7 @@
 Rdb::Application.routes.draw do |map|
-  resources :bookings
-
   resources :reservations
+
+  resources :bookings
 
   resources :users
 
