@@ -44,6 +44,8 @@ class GesamtsController < ApplicationController
   # POST /gesamts.xml
   def create
     @gesamt = Gesamt.new(params[:gesamt])
+    @teil1 = Teil1.create(params[:gesamt])
+    @teil2 = Teil2.create(params[:gesamt])
 
     respond_to do |format|
       if @gesamt.save
