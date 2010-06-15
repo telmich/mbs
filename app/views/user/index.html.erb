@@ -1,5 +1,11 @@
 <h1>Welcome to the reservation system</h1>
 
+<ul>
+   <li><%= link_to 'Users', users_path %>
+   <li><%= link_to 'Machines', machines_path %>
+</ul>
+
+<h2>Reservations</h2)
 <table>
 <% @machines.each do |machine| %>
   <tr class="entry">
