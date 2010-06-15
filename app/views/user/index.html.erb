@@ -9,20 +9,19 @@
 <h2>Reservations-2</h2)
 <% form_tag do %>
 
-    <%= label_tag(:user_id, "User:") %>
-    <%= text_field_tag(:user_id) %>
-    <%= submit_tag("Book!") %> 
+   <%= label_tag(:user_id, "User:") %>
+   <%= text_field_tag(:user_id) %>
+   <%= submit_tag("Book!") %> 
 
+   <table>
+   <% @machines.each do |machine| %>
+      <tr class="entry">
+         <td><%= machine.title %></td>
+         <td><%= machine.description %></td>
+         <td><%= check_box_tag(:reserve) %></td>
+         <td><%= button_to 'ReserveA', reservations_path(:machine_id => machine) %></td>
+      </tr>
+   <% end %>
 <% end %> 
 
-<h2>Reservations</h2)
-<p><%= @userid %>
-<table>
-<% @machines.each do |machine| %>
-  <tr class="entry">
-    <td><%= machine.title %></td>
-    <td><%= machine.description %></td>
-    <td><%= button_to 'Reserve', reservations_path(:machine_id => machine) %></td>
-  </tr>
-<% end %>
 </table>
