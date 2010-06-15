@@ -42,6 +42,7 @@ class GesamtsController < ApplicationController
 
   # POST /gesamts
   # POST /gesamts.xml
+  # retrieves hash
   def create
     @gesamt = Gesamt.new(params[:gesamt])
     @teil1 = Teil1.create(params[:gesamt])
