@@ -3,6 +3,7 @@ class BookingsController < ApplicationController
   # GET /bookings.xml
   def index
     @bookings = Booking.all
+    @machines = Machine.all
 
     respond_to do |format|
       format.html # index.html.erb
