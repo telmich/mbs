@@ -1,0 +1,23 @@
+<h1>Listing gesamts</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @gesamts.each do |gesamt| %>
+  <tr>
+    <td><%= gesamt.name %></td>
+    <td><%= link_to 'Show', gesamt %></td>
+    <td><%= link_to 'Edit', edit_gesamt_path(gesamt) %></td>
+    <td><%= link_to 'Destroy', gesamt, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Gesamt', new_gesamt_path %>

@@ -1,0 +1,2 @@
+module GesamtsHelper
+end

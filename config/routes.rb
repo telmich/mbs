@@ -1,4 +1,10 @@
 Rdb::Application.routes.draw do |map|
+  resources :gesamts
+
+  resources :teil2s
+
+  resources :teil1s
+
   resources :endusers
 
   resources :users

@@ -1,0 +1,20 @@
+<%= form_for(@teil1) do |f| %>
+  <% if @teil1.errors.any? %>
+  <div id="errorExplanation">
+    <h2><%= pluralize(@teil1.errors.count, "error") %> prohibited this teil1 from being saved:</h2>
+    <ul>
+    <% @teil1.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -3,6 +3,8 @@ class EndusersController < ApplicationController
   # GET /endusers.xml
   def index
     @endusers = Enduser.all
+    @machines = Machine.all
+    @reservations = Reservation.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -41,6 +43,16 @@ class EndusersController < ApplicationController
   # POST /endusers.xml
   def create
     @enduser = Enduser.new(params[:enduser])
+    @user_id = User.where(:name => params[:user_id])
+    @machine_ids = []
+    @machine_ids << params[:machine_ids]
+
+    @machine_ids.each do |machine|
+      Machine.find(machine)
+   end
+
+
+
 
     respond_to do |format|
       if @enduser.save

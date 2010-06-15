@@ -1,0 +1,23 @@
+<h1>Listing teil2s</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @teil2s.each do |teil2| %>
+  <tr>
+    <td><%= teil2.name %></td>
+    <td><%= link_to 'Show', teil2 %></td>
+    <td><%= link_to 'Edit', edit_teil2_path(teil2) %></td>
+    <td><%= link_to 'Destroy', teil2, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Teil2', new_teil2_path %>
