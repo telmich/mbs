@@ -3,8 +3,6 @@ Rdb::Application.routes.draw do |map|
 
   resources :gesamts
 
-  resources :teil2s
-
   resources :users
 
   resources :reservations
