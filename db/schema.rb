@@ -9,21 +9,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100615140421) do
+ActiveRecord::Schema.define(:version => 20100615123718) do
 
   create_table "bookings", :force => true do |t|
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "endusers", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "gesamts", :force => true do |t|
-    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -42,18 +31,6 @@ ActiveRecord::Schema.define(:version => 20100615140421) do
     t.integer  "machine_id"
     t.integer  "user_id"
     t.integer  "booking_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "teil1s", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "teil2s", :force => true do |t|
-    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
