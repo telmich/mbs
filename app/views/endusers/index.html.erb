@@ -1,21 +1,28 @@
-<h1>Listing endusers</h1>
+<h1>Welcome to the reservation system</h1>
 
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<ul>
+   <li><%= link_to 'Users', users_path %>
+   <li><%= link_to 'Machines', machines_path %>
+   <li><%= link_to 'Reservations', reservations_path %>
+   <li><%= link_to 'Bookings', bookings_path %>
+</ul>
 
-<% @endusers.each do |enduser| %>
-  <tr>
-    <td><%= link_to 'Show', enduser %></td>
-    <td><%= link_to 'Edit', edit_enduser_path(enduser) %></td>
-    <td><%= link_to 'Destroy', enduser, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
+<h2>Reserve machines </h2)
+<% form_for :booking,  do %>
 
-<br />
+   <br><%= label_tag(:user_id, "User:") %><%= text_field(:user, :name) %>
+   <br><%= label_tag(:date_start, "Begin:") %><%= select_date Date.today, :prefix => :date_start %> 
+   <br><%= label_tag(:date_start, "End:") %><%= select_date Date.today, :prefix => :date_end %> 
 
-<%= link_to 'New Enduser', new_enduser_path %>
+   <table>
+   <% @machines.each do |machine| %>
+      <tr class="entry">
+         <td><%= machine.title %></td>
+         <td><%= machine.description %></td>
+         <td><%= check_box_tag(:reserve) %></td>
+      </tr>
+   <% end %>
+   </table>
+   <%= submit_tag("Book!") %> 
+<% end %> 
+
