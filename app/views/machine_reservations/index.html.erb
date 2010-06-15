@@ -14,7 +14,7 @@
       <td> <%= reservation[:username] %> </td>
       <td> <%= reservation[:id] %> </td>
       <td> <%= reservation[:reservation][:id] %> </td>
-      <td> <%= reservation[:reservation][:machine_id] %> </td>
+      <td> <%= reservation[:machine_name] %> (<%= reservation[:reservation][:machine_id] %>) </td>
       </tr>
 <% end %>
 </table>

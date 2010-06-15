@@ -13,6 +13,7 @@ class MachineReservationsController < ApplicationController
             tmp[:id] = booking[:id]
             tmp[:username] = User.find(booking[:user_id]).name
             tmp[:reservation] = reservation
+            tmp[:machine_name] = Machine.find(reservation[:machine_id]).title
 
             @br << tmp
          end
