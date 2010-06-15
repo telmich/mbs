@@ -11,9 +11,10 @@
 
 <% @br.each do |reservation| %>
       <tr>
-      <td> <%= reservation[:username] %>
-      <td> <%= reservation[:id] %>
-      <td> <%= reservation[:reservation][:id] %>
+      <td> <%= reservation[:username] %> </td>
+      <td> <%= reservation[:id] %> </td>
+      <td> <%= reservation[:reservation][:id] %> </td>
+      <td> <%= reservation[:reservation][:machine_id] %> </td>
       </tr>
 <% end %>
 </table>
