@@ -3,14 +3,26 @@
 <ul>
    <li><%= link_to 'Users', users_path %>
    <li><%= link_to 'Machines', machines_path %>
+   <li><%= link_to 'Reservations', reservations_path %>
 </ul>
 
+<h2>Reservations-2</h2)
+<% form_tag do %>
+
+    <%= label_tag(:user_id, "User:") %>
+    <%= text_field_tag(:user_id) %>
+    <%= submit_tag("Book!") %> 
+
+<% end %> 
+
 <h2>Reservations</h2)
+<p><%= @userid %>
 <table>
 <% @machines.each do |machine| %>
   <tr class="entry">
     <td><%= machine.title %></td>
     <td><%= machine.description %></td>
+    <td><%= button_to 'Reserve', reservations_path(:machine_id => machine) %></td>
   </tr>
 <% end %>
 </table>
