@@ -1,13 +1,19 @@
 Rdb::Application.routes.draw do |map|
+  resources :endusers
+
+  resources :users
+
+  get "user/create"
+
   resources :reservations
 
   resources :bookings
 
-  resources :users
-
   get "user/index"
 
   resources :machines
+
+  resources :user
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

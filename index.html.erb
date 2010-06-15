@@ -8,7 +8,7 @@
 </ul>
 
 <h2>Reserve machines </h2)
-<% form_tag do %>
+<% form_for :booking,  do %>
 
    <br><%= label_tag(:user_id, "User:") %><%= text_field(:user, :name) %>
    <br><%= label_tag(:date_start, "Begin:") %><%= select_date Date.today, :prefix => :date_start %> 
@@ -20,7 +20,6 @@
          <td><%= machine.title %></td>
          <td><%= machine.description %></td>
          <td><%= check_box_tag(:reserve) %></td>
-         <td><%= button_to 'ReserveA', reservations_path(:machine_id => machine) %></td>
       </tr>
    <% end %>
    </table>

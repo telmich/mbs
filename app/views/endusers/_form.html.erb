@@ -1,0 +1,16 @@
+<%= form_for(@enduser) do |f| %>
+  <% if @enduser.errors.any? %>
+  <div id="errorExplanation">
+    <h2><%= pluralize(@enduser.errors.count, "error") %> prohibited this enduser from being saved:</h2>
+    <ul>
+    <% @enduser.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
