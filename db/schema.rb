@@ -9,12 +9,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100615091347) do
+ActiveRecord::Schema.define(:version => 20100615092150) do
 
   create_table "machines", :force => true do |t|
     t.string   "title"
     t.text     "description"
     t.boolean  "usable"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "reservations", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end

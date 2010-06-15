@@ -1,2 +1,10 @@
-Use this README file to introduce your application and point to useful places in the API for learning more.
-Run "rake doc:app" to generate API documentation for your models, controllers, helpers, and libraries.
+Reservation database (rdb)
+
+Contains machines and reservations.
+
+Admin:
+   Can admin machines (new/modify/delete)
+   Can admin reservations (new/modify/delete)
+
+User:
+   Can (un)reserve machines (new/delete)

@@ -1,4 +1,6 @@
 Rdb::Application.routes.draw do |map|
+  resources :reservations
+
   resources :machines
 
   # The priority is based upon order of creation:
