@@ -3,6 +3,9 @@ class GesamtsController < ApplicationController
   # GET /gesamts.xml
   def index
     @gesamts = Gesamt.all
+    @teile1 = Teil1.all
+    @teile2 = Teil2.all 
+    @machinen = Machine.all
 
     respond_to do |format|
       format.html # index.html.erb

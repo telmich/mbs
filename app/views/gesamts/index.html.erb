@@ -18,6 +18,16 @@
 <% end %>
 </table>
 
+<ul>
+<% @teile1.each do |teil| %>
+   <li>Teil: <%= teil.name %>
+<%end %>
+<% @teile2.each do |teil| %>
+   <li>Teil: <%= teil.name %>
+<%end %>
+</ul>
+
+
 <br />
 
 <%= link_to 'New Gesamt', new_gesamt_path %>

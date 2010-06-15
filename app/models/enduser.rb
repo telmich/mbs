@@ -1,4 +1,4 @@
 class Enduser < ActiveRecord::Base
-#   attr_accessor :machine_ids
+   attr_accessor :machine_ids
 
 end
