@@ -5,8 +5,6 @@ Rdb::Application.routes.draw do |map|
 
   resources :teil1s
 
-  resources :endusers
-
   resources :users
 
   resources :reservations
