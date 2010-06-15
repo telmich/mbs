@@ -1,8 +1,6 @@
 Rdb::Application.routes.draw do |map|
   get "user/index"
 
-  resources :reservations
-
   resources :machines
 
   # The priority is based upon order of creation:
