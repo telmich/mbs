@@ -4,9 +4,16 @@ class BookingsController < ApplicationController
   def index
     @bookings = Booking.all
     @machines = Machine.all
+    @machines = Machine.all
 
-   
-  #  @booking_reservations = 
+    @booking_reservations = {}
+
+   if @bookings != nil
+      @bookings.each do |booking|
+#         @booking_reservations[booking.id][:bookings] = Reservation.find_all_by_booking_id(booking.id)
+#         @booking_reservations[booking.id][:bookings] = Reservation.find_all_by_booking_id(booking.id)
+      end
+   end
 
     respond_to do |format|
       format.html # index.html.erb
