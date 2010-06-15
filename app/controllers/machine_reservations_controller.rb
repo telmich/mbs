@@ -4,10 +4,18 @@ class MachineReservationsController < ApplicationController
       @bookings = Booking.all
       @machines = Machine.all
 
-      @br = {}
+      @br = []
 
       @bookings.each do |booking|
-         @br[booking.id] = Reservation.find_all_by_booking_id(booking.id)
+         #tmp[:booking_ids] = Reservation.find_all_by_booking_id(booking.id)
+         Reservation.find_all_by_booking_id(booking.id).each do |reservation|
+            tmp = {}
+            tmp[:id] = booking[:id]
+            tmp[:username] = User.find(booking[:user_id]).name
+            tmp[:reservation] = reservation
+
+            @br << tmp
+         end
       end
    end
 
