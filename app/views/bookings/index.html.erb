@@ -22,6 +22,26 @@
 
 <%= link_to 'New Booking', new_booking_path %>
 
+<h1>Listing bookings with Reservations</h1>
+<table>
+  <tr>
+    <th>User</th>
+    <th>Booking #</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @bookings.each do |booking| %>
+  <tr>
+    <td><%= booking.user_id %></td>
+    <td><%= link_to 'Show', booking %></td>
+    <td><%= link_to 'Edit', edit_booking_path(booking) %></td>
+    <td><%= link_to 'Destroy', booking, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+
 <h1>Welcome to the reservation system</h1>
 
 <ul>
@@ -31,7 +51,7 @@
 </ul>
 
 <h2>Reserve machines </h2)
-<% form_for :enduser, do %>
+<% form_for :booking, do %>
 
    <br><%= label_tag(:user_id, "User:") %><%= text_field(:user, :name) %>
    <br><%= label_tag(:date_start, "Begin:") %><%= select_date Date.today, :prefix => :date_start %> 
