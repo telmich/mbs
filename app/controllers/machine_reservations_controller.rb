@@ -25,6 +25,15 @@ class MachineReservationsController < ApplicationController
       @user = User.find_by_name(params[:user][:name])
       @booking.user_id = User.find_by_name(params[:user][:name]).id
 
+      # fail if we cannot save
+      if ! @booking.save
+         respond_to do |format|
+            format.html { render :action => "new" }
+            format.xml  { render :xml => @booking.errors, :status => :unprocessable_entity }
+         end
+         return
+      end
+
       @machines = params[:bookings][:machine_ids]
 
       @machines.each do |machine|
@@ -36,14 +45,10 @@ class MachineReservationsController < ApplicationController
       end
 
       respond_to do |format|
-         if @booking.save
-            format.html { redirect_to(@booking, :notice => 'Machine reservation was successfully created.') }
-            format.xml  { render :xml => @booking, :status => :created, :location => @booking } 
-         else
-            format.html { render :action => "new" }
-            format.xml  { render :xml => @booking.errors, :status => :unprocessable_entity }
-         end
-    end
+         # FIXME: find out how to call redirect_to to redirect back
+         format.html { redirect_to(@booking, :notice => 'Machine reservation was successfully created.') }
+         format.xml  { render :xml => @booking, :status => :created, :location => @booking } 
+      end
 
   end
 

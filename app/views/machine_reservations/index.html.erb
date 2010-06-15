@@ -1,4 +1,6 @@
-<h1>Listing bookings with Reservations</h1>
+<h1>Welcome to the reservation system</h1>
+
+<h2>Listing bookings with Reservations</h2>
 <table>
   <tr>
     <th>User</th>
@@ -7,7 +9,16 @@
     <th></th>
   </tr>
 
-<h1>Welcome to the reservation system</h1>
+<% @br.each do |reservation| %>
+   <% reservation.each do |result| %>
+      <tr>
+      <td> <%= reservation.user_id %>
+      <td> <%= result.id %>
+      </tr>
+
+   <% end %>
+<% end %>
+</table>
 
 <ul>
    <li><%= link_to 'Users', users_path %>
