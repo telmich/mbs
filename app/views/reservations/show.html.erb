@@ -1,0 +1,25 @@
+<p class="notice"><%= notice %></p>
+
+<p>
+  <b>Begin:</b>
+  <%= @reservation.begin %>
+</p>
+
+<p>
+  <b>End:</b>
+  <%= @reservation.end %>
+</p>
+
+<p>
+  <b>Machine:</b>
+  <%= @reservation.machine_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @reservation.user_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_reservation_path(@reservation) %> |
+<%= link_to 'Back', reservations_path %>

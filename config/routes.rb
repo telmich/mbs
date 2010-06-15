@@ -1,4 +1,6 @@
 Rdb::Application.routes.draw do |map|
+  resources :reservations
+
   resources :users
 
   get "user/index"
