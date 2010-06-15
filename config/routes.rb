@@ -3,17 +3,11 @@ Rdb::Application.routes.draw do |map|
 
   resources :users
 
-  get "user/create"
-
   resources :reservations
 
   resources :bookings
 
-  get "user/index"
-
   resources :machines
-
-  resources :user
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -64,7 +58,7 @@ Rdb::Application.routes.draw do |map|
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => "user#index"
+  root :to => "enduser#index"
 
   # See how all your routes lay out with "rake routes"
 
