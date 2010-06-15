@@ -37,7 +37,7 @@ class MachineReservationsController < ApplicationController
       # fail if we cannot save
       if ! @booking.save
          respond_to do |format|
-            format.html { render :action => "new" }
+            format.html { render :action => "index" }
             format.xml  { render :xml => @booking.errors, :status => :unprocessable_entity }
          end
          return
@@ -54,8 +54,7 @@ class MachineReservationsController < ApplicationController
       end
 
       respond_to do |format|
-         # FIXME: find out how to call redirect_to to redirect back
-         format.html { redirect_to(@booking, :notice => 'Machine reservation was successfully created.') }
+         format.html { redirect_to :action => "index", :notice => 'Machine reservation was successfully created.' }
          format.xml  { render :xml => @booking, :status => :created, :location => @booking } 
       end
 
