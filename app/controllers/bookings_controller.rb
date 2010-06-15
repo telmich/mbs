@@ -25,6 +25,7 @@ class BookingsController < ApplicationController
   # GET /bookings/new.xml
   def new
     @booking = Booking.new
+    @booking.reservations.build
 
     respond_to do |format|
       format.html # new.html.erb
