@@ -1,4 +1,6 @@
 Rdb::Application.routes.draw do |map|
+  get "machine_reservation/reserve"
+
   resources :gesamts
 
   resources :teil2s
