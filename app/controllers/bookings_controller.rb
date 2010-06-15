@@ -42,6 +42,11 @@ class BookingsController < ApplicationController
   # POST /bookings.xml
   def create
     @booking = Booking.new(params[:booking])
+    @user = User.find_by_name(params[:booking][:user_id])
+    puts @user.id, "\n"
+
+    #@booking.user_id = @user.id
+    @booking.user_id = User.find_by_name(params[:booking][:user_id]).id
 
     respond_to do |format|
       if @booking.save
