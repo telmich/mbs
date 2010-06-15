@@ -16,7 +16,7 @@
 </ul>
 
 <h2>Reserve machines </h2)
-<% form_for :booking, do %>
+<% form_for :a, do %>
 
    <br><%= label_tag(:user_id, "User:") %><%= text_field(:user, :name) %>
    <br><%= label_tag(:date_start, "Begin:") %><%= select_date Date.today, :prefix => :date_start %> 

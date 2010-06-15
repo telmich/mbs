@@ -3,8 +3,6 @@ class BookingsController < ApplicationController
   # GET /bookings.xml
   def index
     @bookings = Booking.all
-    @machines = Machine.all
-    @machines = Machine.all
 
     @booking_reservations = {}
 
@@ -60,14 +58,6 @@ class BookingsController < ApplicationController
     @booking.user_id = User.find_by_name(params[:user][:name]).id
 
     @machines = params[:bookings][:machine_ids]
-
-    @machines.each do |machine|
-      m = Reservation.create ({
-         :machine_id => machine,
-         :user_id => @user.id,
-         :booking_id => @booking.id
-      })
-   end
 
     respond_to do |format|
       if @booking.save

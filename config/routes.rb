@@ -1,5 +1,5 @@
 Rdb::Application.routes.draw do |map|
-  resources :machine_reservation
+  resources :machine_reservations
 
   resources :gesamts
 
@@ -64,7 +64,7 @@ Rdb::Application.routes.draw do |map|
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => "machine_reservation#index"
+  root :to => "machine_reservations#index"
 
   # See how all your routes lay out with "rake routes"
 
