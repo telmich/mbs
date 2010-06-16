@@ -2,7 +2,6 @@ class MachineReservationsController < ApplicationController
 
    def index
       @bookings = Booking.all
-      @machines = Machine.all
 
       @date_default_start = Date.today
       @date_default_end = Date.today+6
@@ -10,7 +9,6 @@ class MachineReservationsController < ApplicationController
       @br = []
 
       @bookings.each do |booking|
-         #tmp[:booking_ids] = Reservation.find_all_by_booking_id(booking.id)
          Reservation.find_all_by_booking_id(booking.id).each do |reservation|
             tmp = {}
             tmp[:id] = booking[:id]
@@ -24,6 +22,7 @@ class MachineReservationsController < ApplicationController
    end
 
   def new
+      @machines = Machine.all
   end
 
   def edit
@@ -33,8 +32,19 @@ class MachineReservationsController < ApplicationController
   end
 
   def create
-      @booking = Booking.new
+
+#      @booking = Booking.new
       @user = User.find_by_name(params[:user][:name])
+
+      if ! @user
+         respond_to do |format|
+            format.html { render :action => "error" }
+            format.xml  { render :xml => @booking.errors, :status => :unprocessable_entity }
+         end
+         return
+      end
+
+      @booking = Booking.create({ :user_id => @user.id })
 
       @date_start =  DateTime.civil(y=params[:date_start][:year].to_i,
                            m=params[:date_start][:month].to_i,
@@ -46,7 +56,7 @@ class MachineReservationsController < ApplicationController
                            d=params[:date_end][:day].to_i,
                            h=0, min=0, s=0, of=0)
 
-      @booking.user_id = User.find_by_name(params[:user][:name]).id
+#      @booking.user_id = User.find_by_name(params[:user][:name]).id
 
       # fail if we cannot save
       if ! @booking.save

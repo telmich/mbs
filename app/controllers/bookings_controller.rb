@@ -4,15 +4,6 @@ class BookingsController < ApplicationController
   def index
     @bookings = Booking.all
 
-    @booking_reservations = {}
-
-   if @bookings != nil
-      @bookings.each do |booking|
-#         @booking_reservations[booking.id][:bookings] = Reservation.find_all_by_booking_id(booking.id)
-#         @booking_reservations[booking.id][:bookings] = Reservation.find_all_by_booking_id(booking.id)
-      end
-   end
-
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @bookings }
@@ -51,13 +42,6 @@ class BookingsController < ApplicationController
   # POST /bookings.xml
   def create
     @booking = Booking.new(params[:booking])
-    @user = User.find_by_name(params[:user][:name])
-    puts @user.id, "\n"
-
-    #@booking.user_id = @user.id
-    @booking.user_id = User.find_by_name(params[:user][:name]).id
-
-    @machines = params[:bookings][:machine_ids]
 
     respond_to do |format|
       if @booking.save
