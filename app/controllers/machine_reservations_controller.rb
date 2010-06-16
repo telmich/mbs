@@ -3,9 +3,6 @@ class MachineReservationsController < ApplicationController
    def index
       @bookings = Booking.all
 
-      @date_default_start = Date.today
-      @date_default_end = Date.today+6
-
       @br = []
 
       @bookings.each do |booking|
@@ -23,6 +20,9 @@ class MachineReservationsController < ApplicationController
 
   def new
       @machines = Machine.all
+      @date_default_start = Date.today
+      @date_default_end = Date.today+6
+
   end
 
   def edit
