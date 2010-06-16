@@ -7,6 +7,8 @@
     <th>Booking #</th>
     <th>Reservation #</th>
     <th>Machine #</th>
+    <th>Start</th>
+    <th>End</th>
   </tr>
 
 <% @br.each do |reservation| %>
@@ -29,12 +31,8 @@
 <% form_for :a, do %>
 
    <br><%= label_tag(:user_id, "User:") %><%= text_field(:user, :name) %>
-   <br><%= label_tag(:date_start, "Begin:") %><%= datetime_select("date", "start", :start_year => Date.today.year)
-   
-   %> 
-   <br><%= label_tag(:date_start, "End:") %><%= datetime_select("date", "end", :default => 5.days.from_now)
-   
-    %> 
+   <br><%= label_tag(:date_start, "Begin:") %><%= select_date @date_default_start, :prefix => :date_start %> 
+   <br><%= label_tag(:date_start, "End:") %><%= select_date @date_default_end, :prefix => :date_end %> 
 
    <table>
    <% @machines.each do |machine| %>

@@ -4,6 +4,9 @@ class MachineReservationsController < ApplicationController
       @bookings = Booking.all
       @machines = Machine.all
 
+      @date_default_start = Date.today
+      @date_default_end = Date.today+6
+
       @br = []
 
       @bookings.each do |booking|
@@ -32,6 +35,17 @@ class MachineReservationsController < ApplicationController
   def create
       @booking = Booking.new
       @user = User.find_by_name(params[:user][:name])
+
+      @date_start =  DateTime.civil(y=params[:date_start][:year].to_i,
+                           m=params[:date_start][:month].to_i,
+                           d=params[:date_start][:day].to_i,
+                           h=0, min=0, s=0, of=0)
+
+      @date_end =  DateTime.civil(y=params[:date_end][:year].to_i,
+                           m=params[:date_end][:month].to_i,
+                           d=params[:date_end][:day].to_i,
+                           h=0, min=0, s=0, of=0)
+
       @booking.user_id = User.find_by_name(params[:user][:name]).id
 
       # fail if we cannot save
@@ -49,7 +63,9 @@ class MachineReservationsController < ApplicationController
          m = Reservation.create ({
             :machine_id => machine,
             :user_id => @user.id,
-            :booking_id => @booking.id
+            :booking_id => @booking.id,
+            :begin => @date_start,
+            :end => @date_end,
          })  
       end
 
