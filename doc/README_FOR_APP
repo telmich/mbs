@@ -1,14 +1,4 @@
 Reservation database (rdb)
 
-Contains machines and reservations.
-
-Admin:
-   Can admin machines (new/modify/delete)
-   Can admin reservations (new/modify/delete)
-
-User:
-   Can (un)reserve machines (new/delete)
-
-p115 / stopped
-117
-   - store fehlt
+We have machines, which can be booked by users.
+Each booking should contain the username, start- and end_date,

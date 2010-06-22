@@ -22,7 +22,6 @@ class MachineReservationsController < ApplicationController
       @machines = Machine.all
       @date_default_start = Date.today
       @date_default_end = Date.today+6
-
   end
 
   def edit
@@ -32,13 +31,12 @@ class MachineReservationsController < ApplicationController
   end
 
   def create
-
-#      @booking = Booking.new
+      @booking = Booking.new
       @user = User.find_by_name(params[:user][:name])
 
       if ! @user
          respond_to do |format|
-            format.html { render :action => "error" }
+            format.html { redirect_to :action => "error", :notice => "Unknown user" }
             format.xml  { render :xml => @booking.errors, :status => :unprocessable_entity }
          end
          return
