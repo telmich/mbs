@@ -10,18 +10,14 @@
   </div>
   <% end %>
 
-  <% f.fields_for :reservations do |builder| %>
   <div class="field">
-    <%= builder.label :begin %><br />
-    <%= builder.datetime_select :begin %>
+    <%= f.label :begin %><br />
+    <%= f.datetime_select :begin %>
   </div>
   <div class="field">
-    <%= builder.label :end %><br />
-    <%= builder.datetime_select :end %>
+    <%= f.label :end %><br />
+    <%= f.datetime_select :end %>
   </div>
-<% end %>
-
-
    <table>
    <tr class="header">
       <th>Name</th>
@@ -32,7 +28,10 @@
       <tr class="entry">
          <td><%= machine.title %></td>
          <td><%= machine.description %></td>
-         <td><%= check_box_tag "bookings[machine_ids][]", machine.id -%> </td>
+         <td>a <% f.fields_for :reservations do |builder| %>
+          <%= builder.check_box :machine_id %>
+          <% end %>
+          </td>
       </tr>
    <% end %>
    </table>
