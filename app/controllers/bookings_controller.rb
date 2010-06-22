@@ -26,6 +26,7 @@ class BookingsController < ApplicationController
   def new
     @booking = Booking.new
     @booking.reservations.build
+    @machines = Machine.all
 
     respond_to do |format|
       format.html # new.html.erb

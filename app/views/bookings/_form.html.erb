@@ -19,16 +19,23 @@
     <%= builder.label :end %><br />
     <%= builder.datetime_select :end %>
   </div>
-  <div class="field">
-    <%= builder.label :machine_id %><br />
-    <%= builder.text_field :machine_id %>
-  </div>
-  <div class="field">
-    <%= builder.label :booking_id %><br />
-    <%= builder.text_field :booking_id %>
-  </div>
 <% end %>
 
+
+   <table>
+   <tr class="header">
+      <th>Name</th>
+      <th>Description</th>
+      <th>Reserve</th>
+   </tr>
+   <% @machines.each do |machine| %>
+      <tr class="entry">
+         <td><%= machine.title %></td>
+         <td><%= machine.description %></td>
+         <td><%= check_box_tag "bookings[machine_ids][]", machine.id -%> </td>
+      </tr>
+   <% end %>
+   </table>
 
   <div class="field">
     <%= f.label :user_id %><br />
