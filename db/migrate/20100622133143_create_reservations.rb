@@ -4,7 +4,6 @@ class CreateReservations < ActiveRecord::Migration
       t.datetime :begin
       t.datetime :end
       t.integer :machine_id
-      t.integer :user_id
       t.integer :booking_id
 
       t.timestamps
