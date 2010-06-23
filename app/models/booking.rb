@@ -12,9 +12,10 @@ class Booking < ActiveRecord::Base
    end
 
    def user_name=(input)
-      #searchresult=User.find_by_name(input)
-      #self.user_id= searchresult ? searchresult : -1 
-      self.user_id=User.find_by_name(input).id
+      userexists=User.find_by_name(input)
+      if userexists 
+         self.user_id=searchresult.id
+      end
    end
 
 end
