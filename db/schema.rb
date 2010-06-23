@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100623074940) do
+ActiveRecord::Schema.define(:version => 20100623113133) do
 
   create_table "bookings", :force => true do |t|
     t.integer  "user_id"
@@ -19,15 +19,21 @@ ActiveRecord::Schema.define(:version => 20100623074940) do
     t.datetime "end"
   end
 
+  create_table "machine_types", :force => true do |t|
+    t.string   "name"
+    t.float    "ram_gib"
+    t.integer  "cores"
+    t.string   "cpu_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "machines", :force => true do |t|
     t.string   "title"
     t.text     "description"
     t.boolean  "usable"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "ram"
-    t.integer  "cores"
-    t.string   "cpu_type"
   end
 
   create_table "reservations", :force => true do |t|
