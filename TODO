@@ -1,3 +1,10 @@
  * User auth via ldap/krb?
  * reservation checks
  * Remove hostnames / display after booking
+
+Reservations
+------------
+
+ * Verify dates
+  * Before submit via javascript
+  * after submit by model?
