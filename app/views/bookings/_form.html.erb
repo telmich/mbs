@@ -28,10 +28,7 @@
       <tr class="entry">
          <td><%= machine.title %></td>
          <td><%= machine.description %></td>
-         <td><% f.fields_for :reservations do |builder| %>
-          <%= builder.check_box :machine_id, :checked_value => machine.id %>
-          <% end %>
-          </td>
+         <td><%= check_box_tag "booking[reservations_attributes][][machine_id]", machine.id -%> </td>
       </tr>
    <% end %>
    </table>
