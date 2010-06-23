@@ -31,7 +31,9 @@
          <td><%= machine.machine_type.cpu_type %></td>
          <td><%= machine.machine_type.cores %></td>
          <td><%= machine.machine_type.ram_gib %></td>
-         <td><%= check_box_tag "booking[reservations_attributes][][machine_id]", machine.id -%> </td>
+         <td><%= check_box_tag "booking[reservations_attributes][][machine_id]", machine.id -%>
+         <%= machine.title %>
+         </td>
       </tr>
       <% end %>
    <% end %>
