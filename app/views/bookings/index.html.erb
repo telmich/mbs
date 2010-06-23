@@ -1,10 +1,13 @@
 <h1>Listing bookings</h1>
 
+<%= link_to 'New Booking', new_booking_path %>
+
 <table>
   <tr>
     <th>User</th>
     <th>Begin</th>
     <th>End</th>
+    <th>Machines</th>
     <th></th>
     <th></th>
     <th></th>
@@ -15,11 +18,12 @@
     <td><%= booking.user.name %></td>
     <td><%= booking.begin %></td>
     <td><%= booking.end %></td>
+    <td><% booking.reservations.each do |reservation| %>
+      <%= reservation.machine.title %>
+      <%end%>
     <td><%= link_to 'Show', booking %></td>
     <td><%= link_to 'Edit', edit_booking_path(booking) %></td>
     <td><%= link_to 'Destroy', booking, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
-
-<%= link_to 'New Booking', new_booking_path %>
