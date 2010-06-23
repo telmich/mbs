@@ -8,3 +8,11 @@ Reservations
  * Verify dates
   * Before submit via javascript
   * after submit by model?
+
+Users
+-----
+LDAP?
+Mail verification?
+
+Mail:
+   Create unverified user
