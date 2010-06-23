@@ -27,6 +27,8 @@ class BookingsController < ApplicationController
     @booking = Booking.new
     @booking.reservations.build
     @machines = Machine.all
+    @booking.begin = Date.today
+    @booking.end = Date.today + 6
 
     respond_to do |format|
       format.html # new.html.erb
