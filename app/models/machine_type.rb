@@ -6,5 +6,4 @@ class MachineType < ActiveRecord::Base
    validates_presence_of :cpu_type
 
    has_many :machines
-
 end

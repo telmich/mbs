@@ -19,6 +19,9 @@
     <%= f.text_field :description %>
   </div>
   <div class="field">
+   <%= collection_select(:machine, :machine_type_id, MachineType.all, :id, :name, {:prompt => true}) %>
+  </div>
+  <div class="field">
     <%= f.label :usable %><br />
     <%= f.check_box :usable %>
   </div>

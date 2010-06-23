@@ -5,6 +5,7 @@
     <th>Title</th>
     <th>Description</th>
     <th>Usable</th>
+    <th>Type</th>
     <th></th>
     <th></th>
     <th></th>
@@ -15,6 +16,7 @@
     <td><%= machine.title %></td>
     <td><%= machine.description %></td>
     <td><%= machine.usable %></td>
+    <td><%= machine.machine_type.name %></td>
     <td><%= link_to 'Show', machine %></td>
     <td><%= link_to 'Edit', edit_machine_path(machine) %></td>
     <td><%= link_to 'Destroy', machine, :confirm => 'Are you sure?', :method => :delete %></td>
