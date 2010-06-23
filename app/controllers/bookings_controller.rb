@@ -45,6 +45,7 @@ class BookingsController < ApplicationController
   # POST /bookings.xml
   def create
     @booking = Booking.new(params[:booking])
+    @machines = Machine.all
 
     respond_to do |format|
       if @booking.save
