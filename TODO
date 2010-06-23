@@ -9,6 +9,9 @@ Reservations
   * Before submit via javascript
   * after submit by model?
 
+ * Select machines:
+  * if(machine_usable && Reservation.last.booking.end <= Neu
+
 Users
 -----
 LDAP?

@@ -46,9 +46,27 @@ class BookingsController < ApplicationController
   def create
     @booking = Booking.new(params[:booking])
     @machines = Machine.all
+    @booking_machines = params[:booking][:reservations_attributes]
+
+   # check validity of booking dates
+   @valid_booking = true
+   # Find all machines we try to book
+   @booking_machines.each do |booking_machine|
+      machine_test = Machine.find(booking_machine[:machine_id])
+      
+      # Find all reservations on all machines we try to book
+      machine_test.reservations.each do |existing_reservation|
+         if existing_reservation.booking.end > @booking.begin
+            @valid_booking = false
+            @booking.errors.clear
+            @booking.errors.add(:begin, "is an invalid booking date")
+            break
+         end
+      end
+   end
 
     respond_to do |format|
-      if @booking.save
+      if @valid_booking and @booking.save
         format.html { redirect_to(@booking, :notice => 'Booking was successfully created.') }
         format.xml  { render :xml => @booking, :status => :created, :location => @booking }
       else
