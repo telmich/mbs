@@ -47,6 +47,7 @@ class BookingsController < ApplicationController
     @booking = Booking.new(params[:booking])
     @machines = Machine.all
     @booking_machines = params[:booking][:reservations_attributes]
+    @last_booking_date = nil
 
    # check validity of booking dates
    @valid_booking = true
@@ -57,12 +58,22 @@ class BookingsController < ApplicationController
       # Find all reservations on all machines we try to book
       machine_test.reservations.each do |existing_reservation|
          if existing_reservation.booking.end > @booking.begin
-            @valid_booking = false
-            @booking.errors.clear
-            @booking.errors.add(:begin, "is an invalid booking date")
-            break
+            # update latest used
+            if @last_booking_date
+               if @last_booking_date < existing_reservation.booking.end
+                  @last_booking_date = existing_reservation.booking.end
+               end
+            else
+               @last_booking_date = existing_reservation.booking.end
+            end
          end
       end
+   end
+
+   if @last_booking_date
+      @valid_booking = false
+      @booking.errors.clear
+      @booking.errors.add(:begin, "too early: Book after " + @last_booking_date.to_s )
    end
 
     respond_to do |format|
