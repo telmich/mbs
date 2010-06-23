@@ -1,10 +1,18 @@
 <p class="notice"><%= notice %></p>
 
 <p>
-  <b>User:</b>
-  <%= @booking.user_id %>
+  User <b><%= @booking.user.name %></b> successfully created booking
+  ID <b><%= @booking.id %></b> with the following machines:
+  <ul>
+  <% @booking.reservations.each do |reservation| %>
+  <li><%= reservation.machine.title %>
+  <%end%>
+  </ul>
+  <p><b>Short list:</b>
+  <% @booking.reservations.each do |reservation| %>
+  <%= reservation.machine.title %>
+  <%end%>
 </p>
 
 
-<%= link_to 'Edit', edit_booking_path(@booking) %> |
 <%= link_to 'Back', bookings_path %>
