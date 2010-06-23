@@ -1,0 +1,25 @@
+<p class="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @machine_type.name %>
+</p>
+
+<p>
+  <b>Ram gib:</b>
+  <%= @machine_type.ram_gib %>
+</p>
+
+<p>
+  <b>Cores:</b>
+  <%= @machine_type.cores %>
+</p>
+
+<p>
+  <b>Cpu type:</b>
+  <%= @machine_type.cpu_type %>
+</p>
+
+
+<%= link_to 'Edit', edit_machine_type_path(@machine_type) %> |
+<%= link_to 'Back', machine_types_path %>

@@ -1,4 +1,6 @@
 Rdb::Application.routes.draw do |map|
+  resources :machine_types
+
   resources :users
 
   resources :reservations

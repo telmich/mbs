@@ -1,0 +1,32 @@
+<%= form_for(@machine_type) do |f| %>
+  <% if @machine_type.errors.any? %>
+  <div id="errorExplanation">
+    <h2><%= pluralize(@machine_type.errors.count, "error") %> prohibited this machine_type from being saved:</h2>
+    <ul>
+    <% @machine_type.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :ram_gib %><br />
+    <%= f.text_field :ram_gib %>
+  </div>
+  <div class="field">
+    <%= f.label :cores %><br />
+    <%= f.text_field :cores %>
+  </div>
+  <div class="field">
+    <%= f.label :cpu_type %><br />
+    <%= f.text_field :cpu_type %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

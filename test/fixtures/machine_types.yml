@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  ram_gib: 1.5
+  cores: 1
+  cpu_type: MyString
+
+two:
+  name: MyString
+  ram_gib: 1.5
+  cores: 1
+  cpu_type: MyString
