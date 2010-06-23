@@ -52,28 +52,27 @@ class BookingsController < ApplicationController
    # check validity of booking dates
    @valid_booking = true
    # Find all machines we try to book
-   @booking_machines.each do |booking_machine|
-      machine_test = Machine.find(booking_machine[:machine_id])
-      
-      # Find all reservations on all machines we try to book
-      machine_test.reservations.each do |existing_reservation|
-         if existing_reservation.booking.end > @booking.begin
-            # update latest used
-            if @last_booking_date
-               if @last_booking_date < existing_reservation.booking.end
+   if ! @booking_machines
+      @valid_booking = false
+      @booking.errors.add_to_base("No machines selected")
+   else
+      @booking_machines.each do |booking_machine|
+         machine_test = Machine.find(booking_machine[:machine_id])
+         
+         # Find all reservations on all machines we try to book
+         machine_test.reservations.each do |existing_reservation|
+            if existing_reservation.booking.end > @booking.begin
+               # update latest used
+               if @last_booking_date
+                  if @last_booking_date < existing_reservation.booking.end
+                     @last_booking_date = existing_reservation.booking.end
+                  end
+               else
                   @last_booking_date = existing_reservation.booking.end
                end
-            else
-               @last_booking_date = existing_reservation.booking.end
             end
          end
       end
-   end
-
-   # Accept only booking end before booking begin
-   if @booking.begin >= @booking.end
-      @valid_booking = false
-      @booking.errors.add(:end, "too early: Must be after begin: " + @booking.begin.to_s )
    end
 
    if @last_booking_date
