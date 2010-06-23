@@ -78,7 +78,7 @@ class BookingsController < ApplicationController
 
    if @last_booking_date
       @valid_booking = false
-      @booking.errors.add(:begin, "too early: Book after" + @last_booking_date.to_s )
+      @booking.errors.add(:begin, "too early: Book after " + @last_booking_date.to_s )
    end
 
     respond_to do |format|
