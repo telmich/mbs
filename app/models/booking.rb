@@ -20,12 +20,13 @@ class Booking < ActiveRecord::Base
       end
    end
 
-   def nodes
+   def nodes_count
+      puts "Retrieving nodes for "
       0
    end
 
-   def nodes=(input)
-     @nodes=input 
+   def nodes_count=(input)
+     @nodes_count=input 
    end
 
    def begin_lt_end
