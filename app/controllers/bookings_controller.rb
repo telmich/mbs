@@ -30,6 +30,7 @@ class BookingsController < ApplicationController
     @booking = Booking.new
     @booking.reservations.build
     @machines = Machine.all
+    @machine_types = MachineType.all
     @booking.begin = Date.today
     @booking.end = @booking.begin.to_datetime.next_day @@default_period
     @hints = []
