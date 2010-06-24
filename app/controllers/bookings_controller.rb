@@ -65,7 +65,9 @@ class BookingsController < ApplicationController
          # Find all reservations on all machines we try to book
          machine_test.reservations.each do |existing_reservation|
             # Existing reservation conflicts with booking
-            if existing_reservation.booking.end > @booking.begin
+            if existing_reservation.booking.begin <= @booking.begin and
+               existing_reservation.booking.end > @booking.begin
+
                @booking.errors.add_to_base("Conflicting reservation for " + 
                   machine_test.title + ": " + existing_reservation.booking.end.to_s)
                @valid_booking = false
@@ -86,6 +88,7 @@ class BookingsController < ApplicationController
    # Be smart, set begin and end after last reservation
    if @last_conflicting_booking_date
       @booking.begin = @last_conflicting_booking_date + 1
+      @booking.end = @booking.begin + @@default_period
    end
 
     respond_to do |format|
