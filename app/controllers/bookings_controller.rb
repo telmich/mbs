@@ -31,7 +31,7 @@ class BookingsController < ApplicationController
     @booking.reservations.build
     @machines = Machine.all
     @booking.begin = Date.today
-    @booking.end = @booking.begin.next_day @@default_period
+    @booking.end = @booking.begin.to_datetime.next_day @@default_period
     @hints = []
 
     respond_to do |format|
@@ -71,8 +71,16 @@ class BookingsController < ApplicationController
             if existing_reservation.booking.begin <= @booking.begin and
                existing_reservation.booking.end > @booking.begin
 
-               @booking.errors[:base] << "Conflicting reservation for " +
-                  machine_test.title + ": " + existing_reservation.booking.end.to_s
+               @booking.errors[:base] <<
+                  "Conflicting booking " +
+                  existing_reservation.booking.id.to_s +
+                  " with reservation for " +
+                  machine_test.title +
+                  " (" +
+                  existing_reservation.booking.begin.to_s +
+                  " - " +
+                  existing_reservation.booking.end.to_s +
+                  ")"
                @valid_booking = false
 
                # Remember the latest reservation time and set as begin on repost
