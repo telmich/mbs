@@ -1,2 +1,103 @@
-<h1>MachineReservation#create</h1>
-<p>Find me in app/views/machine_reservation/create.html.erb</p>
+<% @hints.each do |hint| %>
+<p class="notice"><%= hint %></p>
+<%end%>
+
+<%= form_for(@booking) do |f| %>
+  <% if @booking.errors.any? %>
+  <div id="errorExplanation">
+    <h2><%= pluralize(@booking.errors.count, "error") %> prohibited this booking from being saved:</h2>
+    <ul>
+    <% @booking.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :begin %><br />
+    <%= f.datetime_select :begin %>
+  </div>
+  <div class="field">
+    <%= f.label :end %><br />
+    <%= f.datetime_select :end %>
+  </div>
+   <table>
+   <tr class="header">
+      <th>CPU</th>
+      <th>Cores</th>
+      <th>RAM (GiB)</th>
+      <th>Reserve</th>
+   </tr>
+   <% @machines.each do |machine| %>
+      <% if machine.usable %>
+      <tr class="entry">
+         <td><%= machine.machine_type.cpu_type %></td>
+         <td><%= machine.machine_type.cores %></td>
+         <td><%= machine.machine_type.ram_gib %></td>
+         <td><%= check_box_tag "booking[reservations_attributes][][machine_id]", machine.id -%>
+         <%= machine.name %>
+         </td>
+      </tr>
+      <% end %>
+   <% end %>
+   </table>
+
+  <div class="field">
+    <%= f.label :user_name %><br />
+    <%= f.text_field :user_name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<hr>
+<h2>Select number of machines to book</h2>
+<%= form_for(@booking) do |f| %>
+  <% if @booking.errors.any? %>
+  <div id="errorExplanation">
+    <h2><%= pluralize(@booking.errors.count, "error") %> prohibited this booking from being saved:</h2>
+    <ul>
+    <% @booking.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :user_name %><br />
+    <%= f.text_field :user_name %>
+  </div>
+  <div class="field">
+    <%= f.label :begin %><br />
+    <%= f.datetime_select :begin %>
+  </div>
+  <div class="field">
+    <%= f.label :end %><br />
+    <%= f.datetime_select :end %>
+  </div>
+<table>
+   <tr class="header">
+      <th>Book</th>
+      <th>#</th>
+      <th>CPU</th>
+      <th>Cores</th>
+      <th>RAM</th>
+   </tr>
+   <% @machine_types.each do |machine_type| %>
+      <tr class="entry">
+         <td class="field"><%= f.text_field machine_type.name, :size => 2 %> </td>
+         <td><%= machine_type.machines.length %></td>
+         <td><%= machine_type.cpu_type %></td>
+         <td><%= machine_type.cores %></td>
+         <td><%= machine_type.ram_gib %></td>
+      </tr>
+   <% end %>
+</table>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<%end%>
