@@ -51,6 +51,7 @@ class BookingsController < ApplicationController
   def create
     @booking = Booking.new(params[:booking])
     @machines = Machine.all
+    @machine_types = MachineType.all
     @booking_machines = params[:booking][:reservations_attributes]
     @last_conflicting_booking_date = nil
     @valid_booking = true
@@ -100,6 +101,8 @@ class BookingsController < ApplicationController
    end
 
    # Be smart, set begin and end after last reservation
+   # Not too smart: selects a new date, which may conflict
+   # again! --> we have to re-check the newly defined date!
    if @last_conflicting_booking_date
       @booking.begin = @last_conflicting_booking_date.to_datetime.next_day 1
       @booking.end = @booking.begin.next_day @@default_period

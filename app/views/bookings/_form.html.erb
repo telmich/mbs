@@ -84,11 +84,11 @@
       <th>#</th>
       <th>CPU</th>
       <th>Cores</th>
-      <th>RAM (GiB)</th>
+      <th>RAM</th>
    </tr>
    <% @machine_types.each do |machine_type| %>
       <tr class="entry">
-         <td class="field"><%= f.label :nodes %><%= f.text_field :nodes %> </td>
+         <td class="field"><%= f.text_field :nodes, :size => 2 %> </td>
          <td><%= machine_type.machines.length %></td>
          <td><%= machine_type.cpu_type %></td>
          <td><%= machine_type.cores %></td>
