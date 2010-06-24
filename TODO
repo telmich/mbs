@@ -5,9 +5,21 @@
 Reservations
 ------------
 
- * Verify dates
-  * Before submit via javascript
-  * after submit by model?
+"select_by_type_and_date" variant:
+   bookable = true
+   for each selected type do |type|
+      mt = find_free_nodes_of type count begin end
+      if mt
+         nodes << mt
+      else
+         date = find_first_free_date_for_nodes_of type count begin end
+         bookable = false
+      end
+   end
+
+
+
+      
 
  * Select machines:
   * if(machine_usable && Reservation.last.booking.end <= Neu
