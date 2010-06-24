@@ -17,12 +17,12 @@ Reservations
       end
    end
 
-
-
-      
-
  * Select machines:
   * if(machine_usable && Reservation.last.booking.end <= Neu
+
+ * Create a dynamic array similar to the one in sdb?
+   -> Add machines
+      -> [no] [type] 
 
 Users
 -----

@@ -27,10 +27,11 @@ class Booking < ActiveRecord::Base
 
    def nodes_count=(input)
      @nodes_count=input 
+     puts "Nodes: " + @nodes_count.to_s
    end
 
    def begin_lt_end
-      errors.add_to_base("End should be after begin.") if (self.begin >= self.end)
+      errors[:base] << "End should be after begin." if (self.begin >= self.end)
    end
 
 end

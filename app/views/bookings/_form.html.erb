@@ -54,6 +54,7 @@
 
 <hr>
 <h2>Select number of machines to book</h2>
+<h3>Machine type overview</h3>
 <%= form_for(@booking) do |f| %>
   <% if @booking.errors.any? %>
   <div id="errorExplanation">
@@ -80,7 +81,7 @@
   </div>
 <table>
    <tr class="header">
-      <th>Book</th>
+      <th>Type</th>
       <th>#</th>
       <th>CPU</th>
       <th>Cores</th>
@@ -88,7 +89,7 @@
    </tr>
    <% @machine_types.each do |machine_type| %>
       <tr class="entry">
-         <td class="field"><%= f.text_field :nodes_count, :size => 2 %> </td>
+         <td><%= text_field_tag "booking[nodes_count][" + machine_type.id.to_s + "]", 0, :size => 2 %></td>
          <td><%= machine_type.machines.length %></td>
          <td><%= machine_type.cpu_type %></td>
          <td><%= machine_type.cores %></td>
@@ -96,6 +97,8 @@
       </tr>
    <% end %>
 </table>
+
+  Add machines link here
   <div class="actions">
     <%= f.submit %>
   </div>
