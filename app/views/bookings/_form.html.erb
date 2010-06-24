@@ -1,3 +1,7 @@
+<% @hints.each do |hint| %>
+<p class="notice"><%= hint %></p>
+<%end%>
+
 <%= form_for(@booking) do |f| %>
   <% if @booking.errors.any? %>
   <div id="errorExplanation">

@@ -31,7 +31,8 @@ class BookingsController < ApplicationController
     @booking.reservations.build
     @machines = Machine.all
     @booking.begin = Date.today
-    @booking.end = Date.today + @@default_period
+    @booking.end = @booking.begin.next_day @@default_period
+    @hints = []
 
     respond_to do |format|
       format.html # new.html.erb
@@ -52,6 +53,7 @@ class BookingsController < ApplicationController
     @booking_machines = params[:booking][:reservations_attributes]
     @last_conflicting_booking_date = nil
     @valid_booking = true
+    @hints = []
 
     # { "ikr01" => [...] }
 
@@ -90,9 +92,8 @@ class BookingsController < ApplicationController
    if @last_conflicting_booking_date
       @booking.begin = @last_conflicting_booking_date.to_datetime.next_day 1
       @booking.end = @booking.begin.next_day @@default_period
-      #@booking.end = @last_conflicting_booking_date + 1 + @@default_period
-      puts "New begin: " + @booking.begin.to_s
-      puts "New end: " + @booking.end.to_s
+      # FIXME: should be notice
+      @hints << "Automatically adjusted begin and end date"
    end
 
     respond_to do |format|
