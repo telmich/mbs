@@ -1,5 +1,6 @@
 Rdb::Application.routes.draw do |map|
   get "machine_reservation/create"
+  post "machine_reservation/create"
 
   resources :machine_types
 
