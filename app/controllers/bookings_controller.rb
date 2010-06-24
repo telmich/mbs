@@ -74,7 +74,7 @@ class BookingsController < ApplicationController
                existing_reservation.booking.end > @booking.begin
 
                @booking.errors[:base] <<
-                  machine_test.title +
+                  machine_test.name +
                   " (" +
                   existing_reservation.booking.id.to_s +
                   ")" +

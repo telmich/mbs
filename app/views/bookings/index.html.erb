@@ -19,7 +19,7 @@
     <td><%= booking.begin %></td>
     <td><%= booking.end %></td>
     <td><% booking.reservations.each do |reservation| %>
-      <%= reservation.machine.title %>
+      <%= reservation.machine.name %>
       <%end%>
     <td><%= link_to 'Show', booking %></td>
     <td><%= link_to 'Edit', edit_booking_path(booking) %></td>

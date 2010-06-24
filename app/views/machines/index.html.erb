@@ -13,7 +13,7 @@
 
 <% @machines.each do |machine| %>
   <tr>
-    <td><%= machine.title %></td>
+    <td><%= machine.name %></td>
     <td><%= machine.description %></td>
     <td><%= machine.usable %></td>
     <td><%= link_to machine.machine_type.name, machine_type_path(machine.machine_type_id) %></td>

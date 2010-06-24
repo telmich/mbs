@@ -5,12 +5,12 @@
   ID <b><%= @booking.id %></b> with the following machines:
   <ul>
   <% @booking.reservations.each do |reservation| %>
-  <li><%= reservation.machine.title %>
+  <li><%= reservation.machine.name %>
   <%end%>
   </ul>
   <p><b>Short list:</b>
   <% @booking.reservations.each do |reservation| %>
-  <%= reservation.machine.title %>
+  <%= reservation.machine.name %>
   <%end%>
 </p>
 
