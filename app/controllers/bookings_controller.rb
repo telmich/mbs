@@ -26,6 +26,7 @@ class BookingsController < ApplicationController
   # GET /bookings/new
   # GET /bookings/new.xml
   def new
+   puts "Entered in new here"
     @booking = Booking.new
     @booking.reservations.build
     @machines = Machine.all
@@ -57,7 +58,7 @@ class BookingsController < ApplicationController
    # Find all machines we try to book
    if ! @booking_machines
       @valid_booking = false
-      @booking.errors.add_to_base("No machines selected")
+      @booking.errors[:base] << "No machines selected"
    else
       @booking_machines.each do |booking_machine|
          machine_test = Machine.find(booking_machine[:machine_id])
@@ -68,8 +69,8 @@ class BookingsController < ApplicationController
             if existing_reservation.booking.begin <= @booking.begin and
                existing_reservation.booking.end > @booking.begin
 
-               @booking.errors.add_to_base("Conflicting reservation for " + 
-                  machine_test.title + ": " + existing_reservation.booking.end.to_s)
+               @booking.errors[:base] << "Conflicting reservation for " +
+                  machine_test.title + ": " + existing_reservation.booking.end.to_s
                @valid_booking = false
 
                # Remember the latest reservation time and set as begin on repost
@@ -87,8 +88,11 @@ class BookingsController < ApplicationController
 
    # Be smart, set begin and end after last reservation
    if @last_conflicting_booking_date
-      @booking.begin = @last_conflicting_booking_date + 1
-      @booking.end = @booking.begin + @@default_period
+      @booking.begin = @last_conflicting_booking_date.to_datetime.next_day 1
+      @booking.end = @booking.begin.next_day @@default_period
+      #@booking.end = @last_conflicting_booking_date + 1 + @@default_period
+      puts "New begin: " + @booking.begin.to_s
+      puts "New end: " + @booking.end.to_s
    end
 
     respond_to do |format|
