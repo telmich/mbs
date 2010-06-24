@@ -1,4 +1,6 @@
 class BookingsController < ApplicationController
+   @@default_period = 6
+
   # GET /bookings
   # GET /bookings.xml
   def index
@@ -28,7 +30,7 @@ class BookingsController < ApplicationController
     @booking.reservations.build
     @machines = Machine.all
     @booking.begin = Date.today
-    @booking.end = Date.today + 6
+    @booking.end = Date.today + @@default_period
 
     respond_to do |format|
       format.html # new.html.erb
@@ -47,10 +49,11 @@ class BookingsController < ApplicationController
     @booking = Booking.new(params[:booking])
     @machines = Machine.all
     @booking_machines = params[:booking][:reservations_attributes]
-    @last_booking_date = nil
+    @last_conflicting_booking_date = nil
+    @valid_booking = true
 
-   # check validity of booking dates
-   @valid_booking = true
+    # { "ikr01" => [...] }
+
    # Find all machines we try to book
    if ! @booking_machines
       @valid_booking = false
@@ -61,23 +64,28 @@ class BookingsController < ApplicationController
          
          # Find all reservations on all machines we try to book
          machine_test.reservations.each do |existing_reservation|
+            # Existing reservation conflicts with booking
             if existing_reservation.booking.end > @booking.begin
-               # update latest used
-               if @last_booking_date
-                  if @last_booking_date < existing_reservation.booking.end
-                     @last_booking_date = existing_reservation.booking.end
-                  end
+               @booking.errors.add_to_base("Conflicting reservation for " + 
+                  machine_test.title + ": " + existing_reservation.booking.end.to_s)
+               @valid_booking = false
+
+               # Remember the latest reservation time and set as begin on repost
+               if ! @last_conflicting_booking_date
+                  @last_conflicting_booking_date = existing_reservation.booking.end
                else
-                  @last_booking_date = existing_reservation.booking.end
+                  if @last_conflicting_booking_date < existing_reservation.booking.end
+                     @last_conflicting_booking_date = existing_reservation.booking.end
+                  end
                end
             end
          end
       end
    end
 
-   if @last_booking_date
-      @valid_booking = false
-      @booking.errors.add(:begin, "too early: Book after " + @last_booking_date.to_s )
+   # Be smart, set begin and end after last reservation
+   if @last_conflicting_booking_date
+      @booking.begin = @last_conflicting_booking_date + 1
    end
 
     respond_to do |format|
