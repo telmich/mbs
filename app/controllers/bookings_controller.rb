@@ -77,19 +77,20 @@ class BookingsController < ApplicationController
                @booking.errors[:base] << "Trying to book more " + typename + "s than existing."
             else
 
+               reservable_machines_count = 0
                all_machines.each do |machine|
-                  break if count == 0
+                  break if count == reservable_machines_count
 
                   if machine.is_free? @booking.begin, @booking.end
                      puts "Adding machine " + machine.name + "for " + MachineType.find(type).name
-                     count -= 1
+                     reservable_machines_count += 1
                      @machines_to_book << { :machine_id => machine.id }
                   end
 
                end
 
                if count > 0
-                  @booking.errors[:base] << "Not enough " + MachineType.find(type).name + "s available at the choosen date."
+                  @booking.errors[:base] << "Only " + reservable_machines_count.to_s + " " + MachineType.find(type).name + "(s) available at the choosen date."
                end
 
             end
