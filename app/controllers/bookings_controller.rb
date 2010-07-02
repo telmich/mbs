@@ -83,6 +83,7 @@ class BookingsController < ApplicationController
                if machine.is_free? @booking.begin, @booking.end
                   puts "Adding machine " + machine.name + "for " + MachineType.find(type).name
                   count -= 1
+                  @nodes_reserved += 1
                end
 
             end
