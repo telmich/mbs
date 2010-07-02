@@ -55,11 +55,31 @@ class BookingsController < ApplicationController
     @booking_machines = params[:booking][:reservations_attributes]
     @last_conflicting_booking_date = nil
     @valid_booking = true
+    @nodes_count = params[:booking][:nodes_count]
     @hints = []
 
-    # { "ikr01" => [...] }
+   # { "ikr01" => [...] }
 
-   # Find all machines we try to book
+   # Find machines to reserve
+   @nodes_count.each_pair do |type, count|
+      puts "Searching " + count.to_s + " " + MachineType.find(type).name + " machines"
+
+      all_machines = MachineType.find(type).machines
+
+
+      all_machines.each do |machine|
+         break if count == 0
+
+      end
+
+
+
+   end
+      
+
+
+
+   # Find reservations for selected machines -- CODE FOR MANUAL INPUT
    if ! @booking_machines
       @valid_booking = false
       @booking.errors[:base] << "No machines selected"
