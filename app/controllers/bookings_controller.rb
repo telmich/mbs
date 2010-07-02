@@ -83,13 +83,13 @@ class BookingsController < ApplicationController
                   if machine.is_free? @booking.begin, @booking.end
                      puts "Adding machine " + machine.name + "for " + MachineType.find(type).name
                      count -= 1
-                     @machines_to_book << machine 
+                     @machines_to_book << { :machine_id => machine.id }
                   end
 
                end
 
                if count > 0
-                  @booking.errors[:base] << "Not enough " + MachineType.find(type).name + "available"
+                  @booking.errors[:base] << "Not enough " + MachineType.find(type).name + "s available at the choosen date."
                end
 
             end
@@ -98,18 +98,8 @@ class BookingsController < ApplicationController
 
       if @machines_to_book.empty?
          @booking.errors[:base] << "Zero machines selected"
-      end
-
-      # if everything went fine, reserve machines and save booking
-      # FIXME: rollback not yet implemented
-      # FIXME: race conditions possible
-      if @booking.errors.empty?
-         foobar = []
-         @machines_to_book.each do |machine|
-            foobar << { :machine_id => machine.id } 
-         end
-
-         @booking.reservations_attributes = foobar
+      else
+         @booking.reservations_attributes = @machines_to_book
       end
 
       respond_to do |format|
