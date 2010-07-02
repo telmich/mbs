@@ -1,6 +1,6 @@
 class Booking < ActiveRecord::Base
    belongs_to :user
-   has_many :reservations
+   has_many :reservations, :dependent => :destroy
 
    accepts_nested_attributes_for :reservations
 
