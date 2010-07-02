@@ -50,6 +50,7 @@ class BookingsController < ApplicationController
    def create
       @booking = Booking.new(params[:booking])
       @machines = Machine.all
+      @machine_types = MachineType.all
       @booking_machines = params[:booking][:reservations_attributes]
       @last_conflicting_booking_date = nil
       @valid_booking = true
@@ -103,7 +104,7 @@ class BookingsController < ApplicationController
 
       respond_to do |format|
          if @booking.errors.empty? and @booking.save
-            format.html { redirect_to(@booking, :notice => 'Booking was successfully created.') }
+            format.html { redirect_to(@booking, :notice => 'Booking successfully created.') }
             format.xml  { render :xml => @booking, :status => :created, :location => @booking }
          else
             format.html { render :action => "new" }
