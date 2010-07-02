@@ -57,7 +57,7 @@ class BookingsController < ApplicationController
       @valid_booking = true
       @nodes_count = params[:booking][:nodes_count]
       @hints = []
-      @nodes_reserved = 0
+      @machines_to_book = []
 
    # { "ikr01" => [...] }
 
@@ -83,7 +83,7 @@ class BookingsController < ApplicationController
                   if machine.is_free? @booking.begin, @booking.end
                      puts "Adding machine " + machine.name + "for " + MachineType.find(type).name
                      count -= 1
-                     @nodes_reserved += 1
+                     @machines_to_book << machine 
                   end
 
                end
@@ -96,20 +96,32 @@ class BookingsController < ApplicationController
          end
       end
 
-      if @nodes_reserved == 0
+      if @machines_to_book.empty?
          @booking.errors[:base] << "Zero machines selected"
       end
 
-    respond_to do |format|
-      if @booking.errors.empty? and @booking.save
-        format.html { redirect_to(@booking, :notice => 'Booking was successfully created.') }
-        format.xml  { render :xml => @booking, :status => :created, :location => @booking }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @booking.errors, :status => :unprocessable_entity }
+      # if everything went fine, reserve machines and save booking
+      # FIXME: rollback not yet implemented
+      # FIXME: race conditions possible
+      if @booking.errors.empty?
+         foobar = []
+         @machines_to_book.each do |machine|
+            foobar << { :machine_id => machine.id } 
+         end
+
+         @booking.reservations_attributes = foobar
       end
-    end
-  end
+
+      respond_to do |format|
+         if @booking.errors.empty? and @booking.save
+            format.html { redirect_to(@booking, :notice => 'Booking was successfully created.') }
+            format.xml  { render :xml => @booking, :status => :created, :location => @booking }
+         else
+            format.html { render :action => "new" }
+            format.xml  { render :xml => @booking.errors, :status => :unprocessable_entity }
+         end
+      end
+   end
 
   # PUT /bookings/1
   # PUT /bookings/1.xml
