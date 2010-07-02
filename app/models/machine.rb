@@ -5,15 +5,15 @@ class Machine < ActiveRecord::Base
    belongs_to :machine_type
 
    def is_free?(d_begin, d_end)
-      @free = true
+      free = true
 
       reservations.each do |existing_reservation|
          if existing_reservation.booking.begin <= d_begin and existing_reservation.booking.end > d_begin
-            @free = false
+            free = false
             break
          end 
       end 
-      @free
+      free
    end
 
 end

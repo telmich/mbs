@@ -46,37 +46,54 @@ class BookingsController < ApplicationController
     @booking = Booking.find(params[:id])
   end
 
-  # POST /bookings
-  # POST /bookings.xml
-  def create
-    @booking = Booking.new(params[:booking])
-    @machines = Machine.all
-    @machine_types = MachineType.all
-    @booking_machines = params[:booking][:reservations_attributes]
-    @last_conflicting_booking_date = nil
-    @valid_booking = true
-    @nodes_count = params[:booking][:nodes_count]
-    @hints = []
+   # POST /bookings
+   # POST /bookings.xml
+   def create
+      @booking = Booking.new(params[:booking])
+      @machines = Machine.all
+      @machine_types = MachineType.all
+      @booking_machines = params[:booking][:reservations_attributes]
+      @last_conflicting_booking_date = nil
+      @valid_booking = true
+      @nodes_count = params[:booking][:nodes_count]
+      @hints = []
+      @nodes_reserved = 0
 
    # { "ikr01" => [...] }
 
-   # Find machines to reserve
-   @nodes_count.each_pair do |type, count|
-      puts "Searching " + count.to_s + " " + MachineType.find(type).name + " machines"
+   if @nodes_count.nil?
+      @booking.errors[:base] << "No machines selected (lower form)"
+   else
+      # Find machines to reserve
+      @nodes_count.each_pair do |type, count|
+         typename = MachineType.find(type).name
 
-      all_machines = MachineType.find(type).machines
+         puts "Searching " + count.to_s + " " + typename + " machines"
 
+         count = count.to_i
+         all_machines = MachineType.find(type).machines
 
-      all_machines.each do |machine|
-         break if count == 0
+         if count > all_machines.count
+            @booking.errors[:base] << "Trying to book more " + typename + "s than existing."
+         else
 
+            all_machines.each do |machine|
+               break if count == 0
+
+               if machine.is_free? @booking.begin, @booking.end
+                  puts "Adding machine " + machine.name + "for " + MachineType.find(type).name
+                  count -= 1
+               end
+
+            end
+
+            if count > 0
+               @booking.errors[:base] << "Not enough " + MachineType.find(type).name + "available"
+            end
+
+         end
       end
-
-
-
    end
-      
-
 
 
    # Find reservations for selected machines -- CODE FOR MANUAL INPUT
