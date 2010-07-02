@@ -89,7 +89,7 @@ class BookingsController < ApplicationController
 
                end
 
-               if count > 0
+               if count != reservable_machines_count
                   @booking.errors[:base] << "Only " + reservable_machines_count.to_s + " " + MachineType.find(type).name + "(s) available at the choosen date."
                end
 
