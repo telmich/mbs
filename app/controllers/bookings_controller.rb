@@ -61,40 +61,44 @@ class BookingsController < ApplicationController
 
    # { "ikr01" => [...] }
 
-   if @nodes_count.nil?
-      @booking.errors[:base] << "No machines selected (lower form)"
-   else
-      # Find machines to reserve
-      @nodes_count.each_pair do |type, count|
-         typename = MachineType.find(type).name
+      if @nodes_count.nil?
+         @booking.errors[:base] << "No machines selected (lower form)"
+      else
+         # Find machines to reserve
+         @nodes_count.each_pair do |type, count|
+            typename = MachineType.find(type).name
 
-         puts "Searching " + count.to_s + " " + typename + " machines"
+            puts "Searching " + count.to_s + " " + typename + " machines"
 
-         count = count.to_i
-         all_machines = MachineType.find(type).machines
+            count = count.to_i
+            all_machines = MachineType.find(type).machines
 
-         if count > all_machines.count
-            @booking.errors[:base] << "Trying to book more " + typename + "s than existing."
-         else
+            if count > all_machines.count
+               @booking.errors[:base] << "Trying to book more " + typename + "s than existing."
+            else
 
-            all_machines.each do |machine|
-               break if count == 0
+               all_machines.each do |machine|
+                  break if count == 0
 
-               if machine.is_free? @booking.begin, @booking.end
-                  puts "Adding machine " + machine.name + "for " + MachineType.find(type).name
-                  count -= 1
-                  @nodes_reserved += 1
+                  if machine.is_free? @booking.begin, @booking.end
+                     puts "Adding machine " + machine.name + "for " + MachineType.find(type).name
+                     count -= 1
+                     @nodes_reserved += 1
+                  end
+
+               end
+
+               if count > 0
+                  @booking.errors[:base] << "Not enough " + MachineType.find(type).name + "available"
                end
 
             end
-
-            if count > 0
-               @booking.errors[:base] << "Not enough " + MachineType.find(type).name + "available"
-            end
-
          end
       end
-   end
+
+      if @nodes_reserved == 0
+         @booking.errors[:base] << "Zero machines selected"
+      end
 
     respond_to do |format|
       if @booking.errors.empty? and @booking.save
