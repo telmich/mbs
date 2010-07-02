@@ -4,6 +4,9 @@ class Machine < ActiveRecord::Base
    has_many :reservations, :dependent => :destroy
    belongs_to :machine_type
 
+   validates_associated :machine_type
+   validates :machine_type_id, :presence => true
+
    def is_free?(d_begin, d_end)
       free = true
 
