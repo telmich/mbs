@@ -43,7 +43,6 @@ class BookingsController < ApplicationController
 
   # GET /bookings/1/edit
   def edit
-    @booking = Booking.find(params[:id])
   end
 
    # POST /bookings
@@ -51,7 +50,6 @@ class BookingsController < ApplicationController
    def create
       @booking = Booking.new(params[:booking])
       @machines = Machine.all
-      @machine_types = MachineType.all
       @booking_machines = params[:booking][:reservations_attributes]
       @last_conflicting_booking_date = nil
       @valid_booking = true
