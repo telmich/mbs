@@ -5,5 +5,5 @@ class MachineType < ActiveRecord::Base
    validates_presence_of :cores
    validates_presence_of :cpu_type
 
-   has_many :machines
+   has_many :machines,  :dependent => :destroy
 end
