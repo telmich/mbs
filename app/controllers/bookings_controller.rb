@@ -96,60 +96,8 @@ class BookingsController < ApplicationController
       end
    end
 
-
-   # Find reservations for selected machines -- CODE FOR MANUAL INPUT
-   if ! @booking_machines
-      @valid_booking = false
-      @booking.errors[:base] << "No machines selected"
-   else
-      @booking_machines.each do |booking_machine|
-         machine_test = Machine.find(booking_machine[:machine_id])
-         
-         # Find all reservations on all machines we try to book
-         machine_test.reservations.each do |existing_reservation|
-            # Existing reservation conflicts with booking
-            if existing_reservation.booking.begin <= @booking.begin and
-               existing_reservation.booking.end > @booking.begin
-
-               @booking.errors[:base] <<
-                  machine_test.name +
-                  " (" +
-                  existing_reservation.booking.id.to_s +
-                  ")" +
-                  " conflict: " +
-                  " (" +
-                  existing_reservation.booking.begin.to_s +
-                  " - " +
-                  existing_reservation.booking.end.to_s +
-                  ")"
-
-               @valid_booking = false
-
-               # Remember the latest reservation time and set as begin on repost
-               if ! @last_conflicting_booking_date
-                  @last_conflicting_booking_date = existing_reservation.booking.end
-               else
-                  if @last_conflicting_booking_date < existing_reservation.booking.end
-                     @last_conflicting_booking_date = existing_reservation.booking.end
-                  end
-               end
-            end
-         end
-      end
-   end
-
-   # Be smart, set begin and end after last reservation
-   # Not too smart: selects a new date, which may conflict
-   # again! --> we have to re-check the newly defined date!
-   if @last_conflicting_booking_date
-      @booking.begin = @last_conflicting_booking_date.to_datetime.next_day 1
-      @booking.end = @booking.begin.next_day @@default_period
-      # FIXME: should be notice
-      @hints << "Automatically adjusted begin and end date"
-   end
-
     respond_to do |format|
-      if @valid_booking and @booking.save
+      if @booking.errors.empty? and @booking.save
         format.html { redirect_to(@booking, :notice => 'Booking was successfully created.') }
         format.xml  { render :xml => @booking, :status => :created, :location => @booking }
       else
