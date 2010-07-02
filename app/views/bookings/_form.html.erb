@@ -28,8 +28,9 @@
   </div>
 <table>
    <tr class="header">
-      <th>Type</th>
+      <th>Book</th>
       <th>#</th>
+      <th>Type</th>
       <th>CPU</th>
       <th>Cores</th>
       <th>RAM</th>
@@ -38,6 +39,7 @@
       <tr class="entry">
          <td><%= text_field_tag "booking[nodes_count][" + machine_type.id.to_s + "]", 0, :size => 2 %></td>
          <td><%= machine_type.machines.length %></td>
+         <td><%= machine_type.name %></td>
          <td><%= machine_type.cpu_type %></td>
          <td><%= machine_type.cores %></td>
          <td><%= machine_type.ram_gib %></td>
@@ -45,7 +47,6 @@
    <% end %>
 </table>
 
-  Add machines link here
   <div class="actions">
     <%= f.submit %>
   </div>
