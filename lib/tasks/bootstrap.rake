@@ -15,6 +15,8 @@ namespace :bootstrap do
       mt.each do |type|
          mtn = MachineType.create type
 
+
+
          puts type.to_s
 
          i = 1

@@ -25,6 +25,7 @@ class MachineTypesController < ApplicationController
   # GET /machine_types/new.xml
   def new
     @machine_type = MachineType.new
+    @count = 0
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,9 +42,14 @@ class MachineTypesController < ApplicationController
   # POST /machine_types.xml
   def create
     @machine_type = MachineType.new(params[:machine_type])
+    @count = params[:machine_type][:count]
+
+      if @count.nil? or @count.to_i < 1
+         @machine_type.errors[:base] << "Need to create at least one machine."
+      end
 
     respond_to do |format|
-      if @machine_type.save
+      if @machine_type.errors.empty? and @machine_type.save
         format.html { redirect_to(@machine_type, :notice => 'Machine type was successfully created.') }
         format.xml  { render :xml => @machine_type, :status => :created, :location => @machine_type }
       else
