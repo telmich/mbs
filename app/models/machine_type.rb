@@ -10,9 +10,16 @@ class MachineType < ActiveRecord::Base
 
    accepts_nested_attributes_for :machines
 
-   # FIXME: add machine creation support into the model,
-   # so it's not dependent on the controller
-
+   def description
+      puts "Retr desc of " + @description.to_s + "\n"
+      @description
+   end
+      
+   def description=(input)
+      @description=input
+      puts "Set desc to " + @description + "\n"
+   end
+      
    def count
       self.machines.count
    end
@@ -20,11 +27,11 @@ class MachineType < ActiveRecord::Base
    def count=(input)
       i = 1 
       machines = []
-      #while i <= params[:machine_type][:count].to_i
+
       while i <= input.to_i
          name = sprintf "%s%0.2d", self.name.downcase, i
-         puts "Creating in model " + name, "\n"
-         machines << { :name => name, :description => "automachine", :usable => true } 
+         puts "Creating in model " + name + " with desc=." + description.to_s + ".\n"
+         machines << { :name => name, :description => self.description, :usable => true } 
          i += 1
       end 
       self.machines_attributes = machines
