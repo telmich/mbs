@@ -42,21 +42,16 @@ class MachineTypesController < ApplicationController
   # POST /machine_types.xml
   def create
     @machine_type = MachineType.new(params[:machine_type])
-    @count = params[:machine_type][:count]
 
-      if @count.nil? or @count.to_i < 1
-         @machine_type.errors[:base] << "Need to create at least one machine."
-      else
-         i = 1
-         machines = []
-         while i <= @count.to_i
-            name = sprintf "%s%0.2d", @machine_type.name.downcase, i
-            puts name, "\n"
-            machines << { :name => name, :description => "automachine", :usable => true } 
-            i += 1
-         end
-         @machine_type.machines_attributes = machines
+      i = 1
+      machines = []
+      while i <= @count.to_i
+         name = sprintf "%s%0.2d", @machine_type.name.downcase, i
+         puts name, "\n"
+         machines << { :name => name, :description => "automachine", :usable => true } 
+         i += 1
       end
+      @machine_type.machines_attributes = machines
 
       respond_to do |format|
          if @machine_type.errors.empty? and @machine_type.save
