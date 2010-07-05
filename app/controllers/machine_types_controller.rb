@@ -43,20 +43,8 @@ class MachineTypesController < ApplicationController
   def create
     @machine_type = MachineType.new(params[:machine_type])
 
-      puts "MACHI: ", params[:machine_type][:count].to_s, "\n"
-      # Create 0 or more machines
-      i = 1
-      machines = []
-      while i <= params[:machine_type][:count].to_i
-         name = sprintf "%s%0.2d", @machine_type.name.downcase, i
-         puts name, "\n"
-         machines << { :name => name, :description => "automachine", :usable => true } 
-         i += 1
-      end
-      @machine_type.machines_attributes = machines
-
       respond_to do |format|
-         if @machine_type.errors.empty? and @machine_type.save
+         if @machine_type.save
             format.html { redirect_to(@machine_type, :notice => 'Machine type was successfully created.') }
             format.xml  { render :xml => @machine_type, :status => :created, :location => @machine_type }
          else

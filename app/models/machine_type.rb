@@ -18,7 +18,16 @@ class MachineType < ActiveRecord::Base
    end
       
    def count=(input)
-      @count = input
+      i = 1 
+      machines = []
+      #while i <= params[:machine_type][:count].to_i
+      while i <= input.to_i
+         name = sprintf "%s%0.2d", self.name.downcase, i
+         puts "Creating in model " + name, "\n"
+         machines << { :name => name, :description => "automachine", :usable => true } 
+         i += 1
+      end 
+      self.machines_attributes = machines
    end
       
 end
