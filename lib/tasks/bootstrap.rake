@@ -14,6 +14,7 @@ namespace :bootstrap do
    task :machine_types => :environment do
       mt.each do |type|
          mtn = MachineType.create type
+         puts "Creating " + type[:name] + "\n"
       end
    end
 

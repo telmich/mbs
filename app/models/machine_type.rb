@@ -4,9 +4,7 @@ class MachineType < ActiveRecord::Base
    validates_presence_of :ram_gib
    validates_presence_of :cores
    validates_presence_of :cpu_type
-   validates_presence_of :count
-
-   validates_numericality_of :count, :greater_than_or_equal_to => 0
+   validates_numericality_of :count, :greater_than_or_equal_to => 0, :only_integer => true
 
    has_many :machines, :dependent => :destroy
 

@@ -43,9 +43,11 @@ class MachineTypesController < ApplicationController
   def create
     @machine_type = MachineType.new(params[:machine_type])
 
+      puts "MACHI: ", params[:machine_type][:count].to_s, "\n"
+      # Create 0 or more machines
       i = 1
       machines = []
-      while i <= @count.to_i
+      while i <= params[:machine_type][:count].to_i
          name = sprintf "%s%0.2d", @machine_type.name.downcase, i
          puts name, "\n"
          machines << { :name => name, :description => "automachine", :usable => true } 
