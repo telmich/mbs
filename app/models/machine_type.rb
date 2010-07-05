@@ -10,6 +10,9 @@ class MachineType < ActiveRecord::Base
 
    accepts_nested_attributes_for :machines
 
+   # FIXME: add machine creation support into the model,
+   # so it's not dependent on the controller
+
    def count
       self.machines.count
    end
