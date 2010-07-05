@@ -6,7 +6,9 @@ class MachineType < ActiveRecord::Base
    validates_presence_of :cpu_type
    validates_presence_of :count
 
-   has_many :machines,  :dependent => :destroy
+   has_many :machines, :dependent => :destroy
+
+   accepts_nested_attributes_for :machines
 
    def count
       self.machines.count

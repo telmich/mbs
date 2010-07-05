@@ -5,7 +5,10 @@ class Machine < ActiveRecord::Base
    belongs_to :machine_type
 
    validates_associated :machine_type
-   validates :machine_type_id, :presence => true
+
+   # need to remove this, to make it work with nested attributes
+   # from machine_type!
+#   validates :machine_type_id, :presence => true
 
    def is_free?(d_begin, d_end)
       free = true

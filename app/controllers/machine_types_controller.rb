@@ -46,18 +46,28 @@ class MachineTypesController < ApplicationController
 
       if @count.nil? or @count.to_i < 1
          @machine_type.errors[:base] << "Need to create at least one machine."
+      else
+         i = 1
+         machines = []
+         while i <= @count.to_i
+            name = sprintf "%s%0.2d", @machine_type.name.downcase, i
+            puts name, "\n"
+            machines << { :name => name, :description => "automachine", :usable => true } 
+            i += 1
+         end
+         @machine_type.machines_attributes = machines
       end
 
-    respond_to do |format|
-      if @machine_type.errors.empty? and @machine_type.save
-        format.html { redirect_to(@machine_type, :notice => 'Machine type was successfully created.') }
-        format.xml  { render :xml => @machine_type, :status => :created, :location => @machine_type }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @machine_type.errors, :status => :unprocessable_entity }
+      respond_to do |format|
+         if @machine_type.errors.empty? and @machine_type.save
+            format.html { redirect_to(@machine_type, :notice => 'Machine type was successfully created.') }
+            format.xml  { render :xml => @machine_type, :status => :created, :location => @machine_type }
+         else
+            format.html { render :action => "new" }
+            format.xml  { render :xml => @machine_type.errors, :status => :unprocessable_entity }
+         end
       end
-    end
-  end
+   end
 
   # PUT /machine_types/1
   # PUT /machine_types/1.xml
