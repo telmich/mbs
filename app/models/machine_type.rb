@@ -12,19 +12,11 @@ class MachineType < ActiveRecord::Base
 
    before_save :create_machines
 
+   attr_accessor :description
+
    @machines = []
    @description = ""
 
-   def description
-      puts "Retr desc of " + @description.to_s + "\n"
-      @description
-   end
-      
-   def description=(input)
-      @description=input
-      puts "Set desc to " + @description + "\n"
-   end
-      
    def count
       self.machines.count
    end
