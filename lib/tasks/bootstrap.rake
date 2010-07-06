@@ -1,11 +1,14 @@
 namespace :bootstrap do
    mt = []
-   mt << { :name => 'IKR', :ram_gib => 4, :cores => 4, :cpu_type => "AMD Opteron 275 2.2Ghz", :count => 30, :description => "" }
-   mt << { :name => 'Mozart', :ram_gib => 8, :cores => 4, :cpu_type => "Intel Xeon 3360 2.8Ghz", :count => 16, :description => "" }
-   mt << { :name => 'Dryad', :ram_gib => 16, :cores => 8, :cpu_type => "AMD Opteron 2376 2.3GHz", :count => 16, :description => "With two HDs" }
+   mt << { :name => 'IKR', :ram_gib => 4, :cores => 4, :cpu_type => "AMD Opteron 275 2.2Ghz", :count => 30, :machine_description => "" }
+   mt << { :name => 'Mozart', :ram_gib => 8, :cores => 4, :cpu_type => "Intel Xeon 3360 2.8Ghz", :count => 16, :machine_description => "" }
+   mt << { :name => 'Dryad', :ram_gib => 16, :cores => 8, :cpu_type => "AMD Opteron 2376 2.3GHz", :count => 16, :machine_description => "With two HDs" }
+   mt << { :name => 'Bach', :ram_gib => 24, :cores => 8, :cpu_type => "Intel Xeon L5520 2.26Ghz", :count => 30, :machine_description => "Nehalem EP" }
+   mt << { :name => 'sgs-r815-', :ram_gib => 128, :cores => 48, :cpu_type => "AMD Opteron 6174 2.2GHz", :count => 1, :machine_description => "Magny Cours" }
 
 
-   desc "Add the default user"
+   # Should switch to ldap!
+   desc "Add users"
    task :default_user => :environment do
       User.create( :name => 'nico2' )
    end
