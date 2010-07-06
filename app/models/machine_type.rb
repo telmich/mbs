@@ -10,6 +10,11 @@ class MachineType < ActiveRecord::Base
 
    accepts_nested_attributes_for :machines
 
+   before_save :create_machines
+
+   @machines = []
+   @description = ""
+
    def description
       puts "Retr desc of " + @description.to_s + "\n"
       @description
@@ -25,13 +30,19 @@ class MachineType < ActiveRecord::Base
    end
       
    def count=(input)
-      i = 1 
+      @count=input
+   end
+
+   def create_machines
+      puts "Creating machines before save"
+      
+      i = 1
       machines = []
 
-      while i <= input.to_i
+      while i <= @count.to_i
          name = sprintf "%s%0.2d", self.name.downcase, i
-         puts "Creating in model " + name + " with desc=." + description.to_s + ".\n"
-         machines << { :name => name, :description => self.description, :usable => true } 
+         puts "MT: Creating machine " + name + " with desc=." + @description.to_s + ".\n"
+         machines << { :name => name, :description => @description, :usable => true } 
          i += 1
       end 
       self.machines_attributes = machines
