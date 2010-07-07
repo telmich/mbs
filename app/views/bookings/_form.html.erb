@@ -22,7 +22,10 @@
     <%= f.label :end %><br />
     <%= f.datetime_select :end %>
   </div>
+<div class=recordset>
 <table>
+
+<thead>
    <tr class="header">
       <th>Book</th>
       <th>#</th>
@@ -31,6 +34,8 @@
       <th>Cores</th>
       <th>RAM</th>
    </tr>
+</thead>
+<tbody>
    <% @machine_types.each do |machine_type| %>
       <tr class="entry">
          <td><%= text_field_tag "booking[nodes_count][" + machine_type.id.to_s + "]",
@@ -43,9 +48,10 @@
       </tr>
    <% end %>
 </table>
-
+</div>
   <div class="actions">
     <%= f.submit %>
   </div>
+
 
 <%end%>
