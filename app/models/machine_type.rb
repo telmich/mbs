@@ -26,14 +26,11 @@ class MachineType < ActiveRecord::Base
    end
 
    def create_machines
-      puts "Creating machines before save"
-      
       i = 1
       machines = []
 
       while i <= @count.to_i
          name = sprintf "%s%0.2d", self.name.downcase, i
-         puts "MT: Creating machine " + name + " with desc=." + @description.to_s + ".\n"
          machines << { :name => name, :description => @description, :usable => true } 
          i += 1
       end 
