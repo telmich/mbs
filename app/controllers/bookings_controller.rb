@@ -51,7 +51,6 @@ class BookingsController < ApplicationController
       @booking = Booking.new(params[:booking])
       @machines = Machine.all
       @machine_types = MachineType.all
-      @hints = []
 
       respond_to do |format|
          if @booking.save

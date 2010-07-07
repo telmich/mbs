@@ -2,7 +2,7 @@ class Booking < ActiveRecord::Base
    belongs_to :user
    has_many :reservations, :dependent => :destroy
 
-   attr_accessor :nodes_count
+   attr_writer :nodes_count
 
    accepts_nested_attributes_for :reservations
 
@@ -18,6 +18,26 @@ class Booking < ActiveRecord::Base
    validate :begin_lt_end, :machines_available
 
    @nodes_count = {}
+
+   def nodes_count(id=nil)
+      puts "Nodes count is being called..."
+      @foobar = nil
+
+      # requested a specific nodes count?
+      if id
+         puts "Retr nodes cound for " + MachineType.find(id).name
+         if @nodes_count.nil?
+            @foobar = 0
+         else
+         puts "Id getting from " + @nodes_count.to_s
+            @foobar = @nodes_count[id.to_s]
+         end
+      else
+         @foobar = @nodes_count
+      end
+      puts "Returing " + @foobar.to_s
+      @foobar
+   end
 
    # depends on user_name=
    def user_name

@@ -1,7 +1,3 @@
-<% @hints.each do |hint| %>
-<p class="notice"><%= hint %></p>
-<%end%>
-
 <%= form_for(@booking) do |f| %>
   <% if @booking.errors.any? %>
   <div id="errorExplanation">
@@ -37,7 +33,8 @@
    </tr>
    <% @machine_types.each do |machine_type| %>
       <tr class="entry">
-         <td><%= text_field_tag "booking[nodes_count][" + machine_type.id.to_s + "]", @booking.nodes_count[machine_type.id], :size => 2 %></td>
+         <td><%= text_field_tag "booking[nodes_count][" + machine_type.id.to_s + "]",
+                                 @booking.nodes_count(machine_type.id), :size => 2 %></td>
          <td><%= machine_type.machines.length %></td>
          <td><%= machine_type.name %></td>
          <td><%= machine_type.cpu_type %></td>
