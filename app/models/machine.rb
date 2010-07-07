@@ -10,17 +10,17 @@ class Machine < ActiveRecord::Base
    # from machine_type!
 #   validates :machine_type_id, :presence => true
 
-   def has_reservation?(d_begin, d_end)
+   def has_reservation?(dates)
       reservation = nil
 
       reservations.each do |existing_reservation|
-         if (existing_reservation.booking.begin <= d_begin and
-             existing_reservation.booking.end > d_begin) or
-             (d_end > existing_reservation.booking.begin and
-              d_end <= existing_reservation.booking.end)
+         if (existing_reservation.booking.begin <= dates[:begin] and
+             existing_reservation.booking.end > dates[:begin]) or
+             (dates[:end] > existing_reservation.booking.begin and
+              dates[:end] <= existing_reservation.booking.end)
 
             reservation = existing_reservation
-            puts name + " has a reservation for " + d_begin.to_s
+            puts name + " has a reservation for " + dates[:begin].to_s
             break
          end
       end
@@ -28,8 +28,8 @@ class Machine < ActiveRecord::Base
       reservation
    end
 
-   def is_free?(d_begin, d_end)
-      has_reservation?(d_begin, d_end) ? false : true
+   def is_free?(dates)
+      has_reservation?(dates) ? false : true
    end
 
    def used_by
