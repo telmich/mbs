@@ -57,7 +57,7 @@ class Booking < ActiveRecord::Base
       @nodes_count.each_pair do |type, count|
          typename = MachineType.find(type).name
 
-         puts "Searching " + count.to_s + " " + typename + " machines"
+        puts "Searching " + count.to_s + " " + typename + " machines"
 
          count = count.to_i
          all_machines = MachineType.find(type).machines
@@ -93,6 +93,13 @@ class Booking < ActiveRecord::Base
       else
          self.reservations_attributes = @machines_to_book
       end
+   end
+
+   # return "current" booking time: now + 1 day
+   def Booking.now
+      dt = DateTime.now
+
+      [dt, dt.next_day]
    end
 
 end
