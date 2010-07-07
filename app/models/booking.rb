@@ -6,17 +6,18 @@ class Booking < ActiveRecord::Base
 
    accepts_nested_attributes_for :reservations
 
+   # validations are run in order of appereance!
    validates_presence_of :user_id, :presence => true
-   validates_presence_of :username
+   validates_presence_of :user_name
    validates_associated  :user
 
    validates_presence_of :begin
    validates_presence_of :end
    validates_presence_of :nodes_count, :presence => true
 
-   validate :begin_lt_end
+   validate :begin_lt_end, :machines_available
 
-   before_save :find_machines
+#   before_save :find_machines
 
    @nodes_count = {}
 
@@ -38,7 +39,7 @@ class Booking < ActiveRecord::Base
    end
 
    # depends on nodes_count=
-   def find_machines
+   def machines_available
       @machines_to_book = []
       @valid = true
 
