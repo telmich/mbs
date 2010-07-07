@@ -20,23 +20,17 @@ class Booking < ActiveRecord::Base
    @nodes_count = {}
 
    def nodes_count(id=nil)
-      puts "Nodes count is being called..."
-      @foobar = nil
-
       # requested a specific nodes count?
       if id
          puts "Retr nodes cound for " + MachineType.find(id).name
          if @nodes_count.nil?
-            @foobar = 0
+            0
          else
-         puts "Id getting from " + @nodes_count.to_s
-            @foobar = @nodes_count[id.to_s]
+            @nodes_count[id.to_s]
          end
       else
-         @foobar = @nodes_count
+         @nodes_count
       end
-      puts "Returing " + @foobar.to_s
-      @foobar
    end
 
    # depends on user_name=
