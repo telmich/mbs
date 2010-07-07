@@ -1,0 +1,17 @@
+<h1>Machines used by...</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Used by?</th>
+  </tr>
+
+<% @machines.each do |machine| %>
+  <tr>
+    <td><%= machine.name %></td>
+    <td><%= link_to machine.machine_type.name, machine_type_path(machine.machine_type_id) %></td>
+    <td><%= machine.used_by %></td>
+  </tr>
+<% end %>
+</table>
