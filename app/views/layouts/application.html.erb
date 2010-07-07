@@ -8,6 +8,14 @@
 </head>
 <body>
 
+<div class="header">
+<%= link_to 'Booking overview', bookings_path %>
+<br><%= link_to 'User management', users_path %>
+<br><%= link_to 'Currently free machines', machine_types_free_path %>
+<br><%= link_to 'Current machine users', machines_used_by_path %>
+</div>
+
+
 <%= yield %>
 
 </body>
