@@ -10,16 +10,26 @@ class Machine < ActiveRecord::Base
    # from machine_type!
 #   validates :machine_type_id, :presence => true
 
-   def is_free?(d_begin, d_end)
-      free = true
+   def has_reservation?(d_begin, d_end)
+      reservation = nil
 
       reservations.each do |existing_reservation|
          if existing_reservation.booking.begin <= d_begin and existing_reservation.booking.end > d_begin
-            free = false
+            reservation = existing_reservation
+            puts name + " has a reservation for " + d_begin.to_s
             break
-         end 
-      end 
-      free
+         end
+      end
+
+      reservation
+   end
+
+   def is_free?(d_begin, d_end)
+      has_reservation?(d_begin, d_end) ? false : true
+   end
+
+   def used_by
+      
    end
 
 end
