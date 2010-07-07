@@ -2,23 +2,25 @@ class Booking < ActiveRecord::Base
    belongs_to :user
    has_many :reservations, :dependent => :destroy
 
-   accepts_nested_attributes_for :reservations
-
-   validates :user_id, :presence => true
-   validates_associated :user
-
-   validates :begin, :presence => true
-   validates :end, :presence => true
-   validates :nodes_count, :presence => true
    attr_accessor :nodes_count
 
-   validate :begin_lt_end
+   accepts_nested_attributes_for :reservations
 
+   validates_presence_of :user_id, :presence => true
+   validates_presence_of :username
+   validates_associated  :user
+
+   validates_presence_of :begin
+   validates_presence_of :end
+   validates_presence_of :nodes_count, :presence => true
+
+   validate :begin_lt_end
 
    before_save :find_machines
 
    @nodes_count = {}
 
+   # depends on user_name=
    def user_name
       user_id ? User.find(user_id).name : ""
    end
@@ -30,10 +32,12 @@ class Booking < ActiveRecord::Base
       end
    end
 
+   # depends on begin= and end=
    def begin_lt_end
       errors[:base] << "End should be after begin." if (self.begin >= self.end)
    end
 
+   # depends on nodes_count=
    def find_machines
       @machines_to_book = []
       @valid = true
