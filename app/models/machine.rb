@@ -38,7 +38,7 @@ class Machine < ActiveRecord::Base
       if reservation
          reservation.booking.user.name
       else
-         "nobody"
+         ""
       end
       
    end
