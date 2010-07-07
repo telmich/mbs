@@ -17,6 +17,11 @@ sans/nethz?
                  booking process it would require some fancy javascript stuff to update
 
 --------------------------------------------------------------------------------
+Create new controller/view for machines/used_by
+   -> machines_used_by/ [index]
+   -> machine_used_by/user
+   ?
+--------------------------------------------------------------------------------
 Database cleanups:
 
    - Remove bookings from the past

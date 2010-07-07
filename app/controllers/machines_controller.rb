@@ -80,4 +80,14 @@ class MachinesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def used_by
+    @machines = Machine.all
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @machines }
+    end
+  end
+
 end
