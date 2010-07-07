@@ -80,6 +80,9 @@ class Booking < ActiveRecord::Base
 
          if count != reservable_machines_count
             self.errors[:base] << "Only " + reservable_machines_count.to_s + " " + MachineType.find(type).name + "(s) available at the choosen date."
+
+            # be nice to the user and set the count to what is available
+            @nodes_count[type] = reservable_machines_count
          end 
 
          end
