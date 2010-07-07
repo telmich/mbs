@@ -1,28 +1,4 @@
  * User auth via ldap/krb?
- * reservation checks
- * Remove hostnames / display after booking
-
-Reservations
-------------
-
-"select_by_type_and_date" variant:
-   bookable = true
-   for each selected type do |type|
-      mt = find_free_nodes_of type count begin end
-      if mt
-         nodes << mt
-      else
-         date = find_first_free_date_for_nodes_of type count begin end
-         bookable = false
-      end
-   end
-
- * Select machines:
-  * if(machine_usable && Reservation.last.booking.end <= Neu
-
- * Create a dynamic array similar to the one in sdb?
-   -> Add machines
-      -> [no] [type] 
 
 Users
 -----
@@ -31,3 +7,11 @@ Mail verification?
 
 Mail:
    Create unverified user
+
+--------------------------------------------------------------------------------
+11:46 < ab> it would be nice if I could see what's free now
+11:47 < ab> or who owns a given machine, etc.
+11:47 < ab> ie. more views onto the same data
+11:48 < telmich> ab: that's no problem, if outside of the booking process directly; if within the 
+                 booking process it would require some fancy javascript stuff to update
+

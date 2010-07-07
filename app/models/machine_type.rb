@@ -40,4 +40,21 @@ class MachineType < ActiveRecord::Base
       self.machines_attributes = machines
    end
       
+   def free_machines
+      mt = MachineType.find(self.id)
+      count = 0
+      start_dt = DateTime.now
+      end_dt = start_dt.next_day 1
+
+      puts "Retrieving count of free machines for " + mt.name
+
+      mt.machines.each do |machine|
+         if machine.is_free?(start_dt, end_dt)
+            count += 1
+         end
+         #count += machine.is_free? (start_dt, end_dt) ? 1 : 0
+      end
+
+      count
+   end
 end

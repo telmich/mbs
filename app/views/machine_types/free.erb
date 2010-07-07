@@ -1,0 +1,28 @@
+<h1>Free machines</h1>
+
+<table>
+  <tr>
+    <th>Free #</th>
+    <th>Name</th>
+    <th>Ram gib</th>
+    <th>Cores</th>
+    <th>Cpu type</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @machine_types.each do |machine_type| %>
+  <tr>
+    <td><%= machine_type.free_machines %></td>
+    <td><%= machine_type.name %></td>
+    <td><%= machine_type.name %></td>
+    <td><%= machine_type.ram_gib %></td>
+    <td><%= machine_type.cores %></td>
+    <td><%= machine_type.cpu_type %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Create booking', new_booking_path %>

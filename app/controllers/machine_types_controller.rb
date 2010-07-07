@@ -81,4 +81,15 @@ class MachineTypesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  # GET/POST /machine_types/free
+  def free
+    @machine_types = MachineType.all
+
+    respond_to do |format|
+      format.html
+      format.xml  { render :xml => @machine_types }
+    end
+  end
+
 end
