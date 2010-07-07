@@ -7,7 +7,17 @@ class Booking < ActiveRecord::Base
    validates :user_id, :presence => true
    validates_associated :user
 
+   validates :begin, :presence => true
+   validates :end, :presence => true
+   validates :nodes_count, :presence => true
+   attr_accessor :nodes_count
+
    validate :begin_lt_end
+
+
+   before_save :find_machines
+
+   @nodes_count = {}
 
    def user_name
       user_id ? User.find(user_id).name : ""
@@ -20,18 +30,53 @@ class Booking < ActiveRecord::Base
       end
    end
 
-   def nodes_count
-      puts "Retrieving nodes for "
-      0
-   end
-
-   def nodes_count=(input)
-     @nodes_count=input 
-     puts "Nodes: " + @nodes_count.to_s
-   end
-
    def begin_lt_end
       errors[:base] << "End should be after begin." if (self.begin >= self.end)
+   end
+
+   def find_machines
+      @machines_to_book = []
+      @valid = true
+
+      @nodes_count.each_pair do |type, count|
+         typename = MachineType.find(type).name
+
+         puts "Searching " + count.to_s + " " + typename + " machines"
+
+         count = count.to_i
+         all_machines = MachineType.find(type).machines
+
+         if count > all_machines.count
+            self.errors[:base] << "Trying to book more " + typename + "s than existing."
+         else
+
+            reservable_machines_count = 0 
+            all_machines.each do |machine|
+               break if count == reservable_machines_count
+
+               if machine.is_free? self.begin, self.end
+                  puts "Adding machine " + machine.name + "for " + MachineType.find(type).name
+                  reservable_machines_count += 1
+                  @machines_to_book << { :machine_id => machine.id }
+               end 
+
+         end
+
+         if count != reservable_machines_count
+            self.errors[:base] << "Only " + reservable_machines_count.to_s + " " + MachineType.find(type).name + "(s) available at the choosen date."
+         end 
+
+         end
+      end
+
+      if @machines_to_book.empty?
+         self.errors[:base] << "Zero machines selected"
+         @valid = false
+      else
+         self.reservations_attributes = @machines_to_book
+      end
+
+      @valid
    end
 
 end

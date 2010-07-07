@@ -51,59 +51,10 @@ class BookingsController < ApplicationController
       @booking = Booking.new(params[:booking])
       @machines = Machine.all
       @machine_types = MachineType.all
-      @booking_machines = params[:booking][:reservations_attributes]
-      @last_conflicting_booking_date = nil
-      @valid_booking = true
-      @nodes_count = params[:booking][:nodes_count]
       @hints = []
-      @machines_to_book = []
-
-   # { "ikr01" => [...] }
-
-      if @nodes_count.nil?
-         @booking.errors[:base] << "No machines selected (lower form)"
-      else
-         # Find machines to reserve
-         @nodes_count.each_pair do |type, count|
-            typename = MachineType.find(type).name
-
-            puts "Searching " + count.to_s + " " + typename + " machines"
-
-            count = count.to_i
-            all_machines = MachineType.find(type).machines
-
-            if count > all_machines.count
-               @booking.errors[:base] << "Trying to book more " + typename + "s than existing."
-            else
-
-               reservable_machines_count = 0
-               all_machines.each do |machine|
-                  break if count == reservable_machines_count
-
-                  if machine.is_free? @booking.begin, @booking.end
-                     puts "Adding machine " + machine.name + "for " + MachineType.find(type).name
-                     reservable_machines_count += 1
-                     @machines_to_book << { :machine_id => machine.id }
-                  end
-
-               end
-
-               if count != reservable_machines_count
-                  @booking.errors[:base] << "Only " + reservable_machines_count.to_s + " " + MachineType.find(type).name + "(s) available at the choosen date."
-               end
-
-            end
-         end
-      end
-
-      if @machines_to_book.empty?
-         @booking.errors[:base] << "Zero machines selected"
-      else
-         @booking.reservations_attributes = @machines_to_book
-      end
 
       respond_to do |format|
-         if @booking.errors.empty? and @booking.save
+         if @booking.save
             format.html { redirect_to(@booking, :notice => 'Booking successfully created.') }
             format.xml  { render :xml => @booking, :status => :created, :location => @booking }
          else
