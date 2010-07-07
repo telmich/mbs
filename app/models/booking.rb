@@ -17,8 +17,6 @@ class Booking < ActiveRecord::Base
 
    validate :begin_lt_end, :machines_available
 
-#   before_save :find_machines
-
    @nodes_count = {}
 
    # depends on user_name=
@@ -41,7 +39,6 @@ class Booking < ActiveRecord::Base
    # depends on nodes_count=
    def machines_available
       @machines_to_book = []
-      @valid = true
 
       @nodes_count.each_pair do |type, count|
          typename = MachineType.find(type).name
@@ -76,12 +73,9 @@ class Booking < ActiveRecord::Base
 
       if @machines_to_book.empty?
          self.errors[:base] << "Zero machines selected"
-         @valid = false
       else
          self.reservations_attributes = @machines_to_book
       end
-
-      @valid
    end
 
 end
