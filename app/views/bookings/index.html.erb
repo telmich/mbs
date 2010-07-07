@@ -1,27 +1,33 @@
 <h2>Bookings</h2>
 <p><%= link_to 'New Booking', new_booking_path %></p>
 
+<div class="recordset">
+
 <table>
+<thead>
   <tr>
     <th><%= link_to 'User', users_path %></th>
     <th>Begin</th>
     <th>End</th>
     <th><%= link_to 'Machines', machine_types_free_path %></th>
     <th></th>
-    <th></th>
-    <th></th>
   </tr>
+</thead>
 
+<tbody>
 <% @bookings.each do |booking| %>
   <tr>
     <td><%= booking.user.name %></td>
     <td><%= booking.begin %></td>
     <td><%= booking.end %></td>
     <td><% booking.reservations.each do |reservation| %>
-      <%= reservation.machine.name %>
-      <%end%>
-    <td><%= link_to 'Show', booking %></td>
-    <td><%= link_to 'Destroy', booking, :confirm => 'Are you sure?', :method => :delete %></td>
+    <%= reservation.machine.name %>
+    <%end%></td>
+    <td><%= link_to '[show]', booking %>
+    <%= link_to '[destroy]', booking, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
+</tbody>
 </table>
+
+</div>

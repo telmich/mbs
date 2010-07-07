@@ -1,11 +1,15 @@
-<h1>Machines used by...</h1>
+<h2>Machines used by...</h2>
 
+<div class="recordset">
 <table>
+<thead>
   <tr>
     <th>Name</th>
     <th>Type</th>
     <th>Used by?</th>
   </tr>
+</thead>
+<tbody>
 
 <% @machines.each do |machine| %>
   <tr>
@@ -14,4 +18,6 @@
     <td><%= machine.used_by %></td>
   </tr>
 <% end %>
+</tbody>
 </table>
+</div>

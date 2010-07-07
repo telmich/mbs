@@ -1,12 +1,18 @@
-<h1>Listing users</h1>
+<h2>Listing users</h2>
 
+<p><%= link_to 'New User', new_user_path %></p>
+
+<div class="recordset">
 <table>
+<thead>
   <tr>
     <th>Name</th>
     <th></th>
     <th></th>
     <th></th>
   </tr>
+</thead>
+<tbody>
 
 <% @users.each do |user| %>
   <tr>
@@ -17,7 +23,5 @@
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New User', new_user_path %>
+</tbody>
+</div>

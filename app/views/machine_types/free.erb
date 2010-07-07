@@ -1,6 +1,8 @@
 <h2>Free machines</h2>
 
+<div class="recordset">
 <table>
+<thead>
   <tr>
     <th>Free #</th>
     <th>Name</th>
@@ -8,8 +10,9 @@
     <th>Cores</th>
     <th>Cpu type</th>
     <th></th>
-    <th></th>
   </tr>
+</thead>
+<tbody>
 
 <% @machine_types.each do |machine_type| %>
   <tr>
@@ -22,3 +25,5 @@
   </tr>
 <% end %>
 </table>
+</tbody>
+</div>
