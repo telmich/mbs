@@ -33,7 +33,13 @@ class Machine < ActiveRecord::Base
    end
 
    def used_by
-      
+      reservation = has_reservation? Booking.now
+
+      if reservation
+         reservation.booking.user.name
+      else
+         "nobody"
+      end
       
    end
 
