@@ -1,16 +1,22 @@
- * User auth via ldap/krb?
 
 Users
 -----
 LDAP?
 Mail verification?
 
+User auth via ldap/krb?
+
 Mail:
    Create unverified user
 
+sans/nethz?
+
 --------------------------------------------------------------------------------
 11:47 < ab> or who owns a given machine, etc.
-11:47 < ab> ie. more views onto the same data
 11:48 < telmich> ab: that's no problem, if outside of the booking process directly; if within the 
                  booking process it would require some fancy javascript stuff to update
 
+--------------------------------------------------------------------------------
+Database cleanups:
+
+   - Remove bookings from the past
