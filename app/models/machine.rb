@@ -14,7 +14,11 @@ class Machine < ActiveRecord::Base
       reservation = nil
 
       reservations.each do |existing_reservation|
-         if existing_reservation.booking.begin <= d_begin and existing_reservation.booking.end > d_begin
+         if (existing_reservation.booking.begin <= d_begin and
+             existing_reservation.booking.end > d_begin) or
+             (d_end > existing_reservation.booking.begin and
+              d_end <= existing_reservation.booking.end)
+
             reservation = existing_reservation
             puts name + " has a reservation for " + d_begin.to_s
             break
@@ -29,6 +33,7 @@ class Machine < ActiveRecord::Base
    end
 
    def used_by
+      
       
    end
 
