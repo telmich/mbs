@@ -1,27 +1,22 @@
+Implement security
+------------------
 
 Users
------
-LDAP?
-Mail verification?
+~~~~~
 
-User auth via ldap/krb?
-
-Mail:
-   Create unverified user
-
+LDAP?  Mail verification?  User auth via ldap/krb?  Mail: Create verified user?
 sans/nethz?
 
---------------------------------------------------------------------------------
-11:47 < ab> or who owns a given machine, etc.
-11:48 < telmich> ab: that's no problem, if outside of the booking process directly; if within the 
-                 booking process it would require some fancy javascript stuff to update
+Interfaces
+~~~~~~~~~~
+Admin / user
+Remove potential dangerous actions?
 
---------------------------------------------------------------------------------
-Create new controller/view for machines/used_by
-   -> machines_used_by/ [index]
-   -> machine_used_by/user
-   ?
---------------------------------------------------------------------------------
-Database cleanups:
+Implement performance
+---------------------
 
-   - Remove bookings from the past
+
+Database cleanups
+~~~~~~~~~~~~~~~~~
+
+Remove bookings from the past?
