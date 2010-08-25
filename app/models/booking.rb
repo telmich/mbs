@@ -99,7 +99,7 @@ class Booking < ActiveRecord::Base
    def Booking.now
       dt = DateTime.now
 
-      { :begin => dt, :end => dt.next_day }
+      { :begin => dt, :end => dt + 1.day }
    end
 
 end

@@ -1,5 +1,5 @@
 class BookingsController < ApplicationController
-   @@default_period = 6
+   @@default_period = 6.days
 
   # GET /bookings
   # GET /bookings.xml
@@ -32,7 +32,7 @@ class BookingsController < ApplicationController
     @machines = Machine.all
     @machine_types = MachineType.all
     @booking.begin = Date.today
-    @booking.end = @booking.begin.to_datetime.next_day @@default_period
+    @booking.end = @booking + @@default_period
     @hints = []
 
     respond_to do |format|
