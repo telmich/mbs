@@ -70,7 +70,7 @@ class Booking < ActiveRecord::Base
             all_machines.each do |machine|
                break if count == reservable_machines_count
 
-               if machine.is_free? ({:begin => self.begin, :end => self.end})
+               if machine.is_free?({:begin => self.begin, :end => self.end})
                   puts "Adding machine " + machine.name + "for " + MachineType.find(type).name
                   reservable_machines_count += 1
                   @machines_to_book << { :machine_id => machine.id }
