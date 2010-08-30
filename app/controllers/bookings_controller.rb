@@ -32,7 +32,7 @@ class BookingsController < ApplicationController
     @machines = Machine.all
     @machine_types = MachineType.all
     @booking.begin = Date.today
-    @booking.end = @booking + @@default_period
+    @booking.end = @booking.begin + @@default_period
     @hints = []
 
     respond_to do |format|
