@@ -1,4 +1,5 @@
 class BookingsController < ApplicationController
+
    @@default_period = 6.days
 
   # GET /bookings
