@@ -1,0 +1,2 @@
+#!/bin/sh
+echo "foo, unicorn does the job for us"
