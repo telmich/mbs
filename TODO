@@ -14,6 +14,16 @@ Interfaces
 Admin / user
 Remove potential dangerous actions?
 
+
+Admin area
+~~~~~~~~~~
+Add link to admin functions - but do not protect it!
+
+Add logging support
+~~~~~~~~~~~~~~~~~~~
+Log specific database changes?
+
+
 Implement performance
 ---------------------
 
@@ -22,3 +32,5 @@ Database cleanups
 ~~~~~~~~~~~~~~~~~
 
 Remove bookings from the past?
+
+

@@ -2,3 +2,16 @@ Reservation database (rdb)
 
 We have machines, which can be booked by users.
 Each booking should contain the username, start- and end_date,
+
+
+--------------------------------------------------------------------------------
+Shibboleth:
+
+   Cannot be used:
+      No Apache module possible nor does have rails shibboleth support.
+--------------------------------------------------------------------------------
+Deploy:
+
+   ETH-VM
+      Rails via ..?
+      Nginx via puppet
