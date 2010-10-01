@@ -1,13 +1,11 @@
 Implement security
 ------------------
 
-Users
-~~~~~
+Users via LDAP
+~~~~~~~~~~~~~~
 
-LDAP?  Mail verification?  User auth via ldap/krb?  Mail: Create verified user?
-sans/nethz?
-
-switch/AAi?
+- query for existence
+- add to database after success
 
 Interfaces
 ~~~~~~~~~~
