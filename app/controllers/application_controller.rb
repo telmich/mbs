@@ -1,5 +1,6 @@
-#require 'rubygems'
-#require 'net/ldap'
+# Needed for ldap
+require 'rubygems'
+require 'net/ldap'
 
 # I need basic auth, see
 # http://kosmaczewski.net/2008/07/07/basic-vs-digest/
@@ -39,14 +40,19 @@ class ApplicationController < ActionController::Base
       ldap.port = "636"
       ldap.encryption :simple_tls
 
-      if ldap.bind
-         puts "Auth worked for #{username}"
-         ok=true
-      else
-         puts "Auth failed for #{username}"
-         ok=false
+      begin
+         if ldap.bind
+            puts "Auth worked for #{username}"
+            ok=true
+         else
+            puts "Auth failed for #{username}"
+            ok=false
+         end
+
+         rescue
+            puts "Ignoring exception: " + $!.to_s
       end
-    
+       
      return ok
    end 
 end
