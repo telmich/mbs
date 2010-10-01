@@ -10,27 +10,40 @@ class ApplicationController < ActionController::Base
    layout 'application'
 
    before_filter :authorize
-   #before_filter :digest_authenticate, :except => [:index, :show]  
-   
-   @realm = "Use your nethz credentials"
+
+
+private
 
    def authorize
       puts "Authorize was called"
-      success = authenticate_or_request_with_http_basic "test" do |username, password|
+      realm = "Use your nethz credentials"
+
+      # retry until we get a valid username
+      success = authenticate_or_request_with_http_basic realm do |username, password|
          puts "User: " + username
          puts "Pass: " + password
+         @username = username
          nethz_auth username, password
+      end
+
+      # add user to db, if needed
+      ensure_user_is_in_db @username
+   end
+
+   def ensure_user_is_in_db(username)
+      unless User.find_by_name username
+         User.create ({ :name => username })
       end
    end
 
     # If authentication succeeds, log the user in.  If not, kick back out a failure
     # message as the response body
-#    if success
-#      session[:user_id] = @user.id
-#    else
-#      request_http_digest_authentication(User.realm, "Authentication failed")
-#    end
-#  end
+    if success
+      session[:user_id] = @user.id
+    else
+      request_http_digest_authentication(User.realm, "Authentication failed")
+    end
+  end
 
    def nethz_auth(username, password)
       ldap = Net::LDAP.new
