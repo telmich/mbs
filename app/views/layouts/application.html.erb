@@ -13,7 +13,6 @@
 <%= link_to '[new booking]', new_booking_path %>
 <%= link_to '[free machines]', machine_types_free_path %>
 <%= link_to '[used machines]', machines_used_by_path %>
-<%= link_to '[admin]', :controller => "admin", :action => "index" %>
 Logged in as <%= User.find(session[:user_id]).name %>
 </div>
 
