@@ -14,6 +14,8 @@ Rdb::Application.routes.draw do |map|
 
   resources :machines
 
+  match 'admin' => 'admin#index'
+  #
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
