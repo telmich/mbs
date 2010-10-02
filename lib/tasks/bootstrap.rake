@@ -10,11 +10,11 @@ namespace :bootstrap do
    mt << { :name => 'sgs-r815-', :ram_gib => 128, :cores => 48, :cpu_type => "AMD Opteron 6174 2.2GHz", :count => 1, :description => "Magny Cours" }
 
 
-   # Should switch to ldap!
-   desc "Add users"
-   task :default_user => :environment do
-      User.create( :name => 'nico' )
-   end
+   # You can add users here, if you do not use ldap
+#   desc "Add users"
+#   task :default_user => :environment do
+#      User.create( :name => 'nico' )
+#   end
 
    desc "Create machine types with machines"
    task :machine_types => :environment do
