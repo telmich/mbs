@@ -36,6 +36,7 @@ class BookingsController < ApplicationController
     @booking.begin = Date.today
     @booking.end = @booking.begin + @@default_period
     @booking.user_id = session[:user_id]
+    puts "Userid in new: " + session[:user_id].to_s
     @hints = []
 
     respond_to do |format|

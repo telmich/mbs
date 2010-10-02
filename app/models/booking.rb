@@ -7,9 +7,8 @@ class Booking < ActiveRecord::Base
    accepts_nested_attributes_for :reservations
 
    # validations are run in order of appereance!
-   validates_presence_of :user_id, :presence => true
-   validates_presence_of :user_name
-   validates_associated  :user
+   validates_presence_of :user_id, :presence => true, :message => "Foo"
+#   validates_associated  :user
 
    validates_presence_of :begin
    validates_presence_of :end
