@@ -23,7 +23,8 @@ private
          puts "User: " + username
          puts "Pass: " + password
          @username = username
-         nethz_auth username, password
+         #nethz_auth username, password
+         true
       end
 
       # add user to db, if needed

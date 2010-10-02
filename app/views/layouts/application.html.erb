@@ -13,8 +13,8 @@
 <%= link_to '[users]', users_path %>
 <%= link_to '[free machines]', machine_types_free_path %>
 <%= link_to '[machines users]', machines_used_by_path %>
+Logged in as <%= User.find(session[:user_id]).name %>
 </div>
-
 
 <%= yield %>
 

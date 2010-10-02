@@ -32,8 +32,10 @@ class BookingsController < ApplicationController
     @booking.reservations.build
     @machines = Machine.all
     @machine_types = MachineType.all
+
     @booking.begin = Date.today
     @booking.end = @booking.begin + @@default_period
+    @booking.user_id = session[:user_id]
     @hints = []
 
     respond_to do |format|
