@@ -1,21 +1,8 @@
 Implement security
 ------------------
 
-Users via LDAP
-~~~~~~~~~~~~~~
-
-- query for existence
-- add to database after success
-
-Interfaces
-~~~~~~~~~~
-Admin / user
-Remove potential dangerous actions?
-
-
-Admin area
-~~~~~~~~~~
-Add link to admin functions - but do not protect it!
+Create "machine usage", as a combination of machines_free and
+machine_users
 
 Add logging support
 ~~~~~~~~~~~~~~~~~~~

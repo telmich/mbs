@@ -1,4 +1,4 @@
-<h2>Machines used by...</h2>
+<h2>Machines currently used</h2>
 
 <div class="recordset">
 <table>
@@ -12,11 +12,13 @@
 <tbody>
 
 <% @machines.each do |machine| %>
-  <tr>
-    <td><%= machine.name %></td>
-    <td><%= link_to machine.machine_type.name, machine_type_path(machine.machine_type_id) %></td>
-    <td><%= machine.used_by %></td>
-  </tr>
+   <% if machine.used_by %>
+     <tr>
+       <td><%= machine.name %></td>
+       <td><%= link_to machine.machine_type.name, machine_type_path(machine.machine_type_id) %></td>
+       <td><%= machine.used_by %></td>
+     </tr>
+   <% end %>
 <% end %>
 </tbody>
 </table>
