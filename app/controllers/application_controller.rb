@@ -15,7 +15,6 @@ class ApplicationController < ActionController::Base
 private
 
    def authorize
-      puts "Authorize was called"
       realm = "Use your nethz credentials"
 
       # retry until we get a valid username
@@ -37,7 +36,7 @@ private
    def ensure_user_is_in_db(username)
       user = User.find_by_name username
       unless user
-         user = User.create ({ :name => username })
+         user = User.create({ :name => username })
       end
       user
    end
