@@ -11,7 +11,6 @@ class ApplicationController < ActionController::Base
 
    before_filter :authorize
 
-
 private
 
    def authorize
@@ -44,7 +43,6 @@ private
    def nethz_auth(username, password)
       ldap = Net::LDAP.new
       ldap.auth "cn=#{username},ou=users,ou=nethz,ou=id,ou=auth,o=ethz,c=ch", password
-
       ldap.host = "ldaps02.ethz.ch"
       ldap.port = "636"
       ldap.encryption :simple_tls
