@@ -27,23 +27,19 @@ private
       end
 
       # add user to db, if needed
-      ensure_user_is_in_db @username
+      @user = ensure_user_is_in_db @username
+      
+      # record id in session
+      session[:user_id] = @user.id
    end
 
    def ensure_user_is_in_db(username)
-      unless User.find_by_name username
-         User.create ({ :name => username })
+      user = User.find_by_name username
+      unless user
+         user = User.create ({ :name => username })
       end
+      user
    end
-
-    # If authentication succeeds, log the user in.  If not, kick back out a failure
-    # message as the response body
-    if success
-      session[:user_id] = @user.id
-    else
-      request_http_digest_authentication(User.realm, "Authentication failed")
-    end
-  end
 
    def nethz_auth(username, password)
       ldap = Net::LDAP.new
