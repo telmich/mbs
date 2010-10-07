@@ -20,7 +20,6 @@ class Machine < ActiveRecord::Base
               dates[:end] <= existing_reservation.booking.end)
 
             reservation = existing_reservation
-            puts name + " has a reservation for " + dates[:begin].to_s
             break
          end
       end

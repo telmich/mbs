@@ -42,8 +42,6 @@ class MachineType < ActiveRecord::Base
       count = 0
       dates = Booking.now
 
-      puts "Retrieving count of free machines for " + mt.name
-
       mt.machines.each do |machine|
          if machine.is_free?(dates)
             count += 1
