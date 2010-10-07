@@ -18,8 +18,6 @@ private
 
       # retry until we get a valid username
       success = authenticate_or_request_with_http_basic realm do |username, password|
-         puts "User: " + username
-         puts "Pass: " + password
          @username = username
          nethz_auth username, password
          #true
@@ -49,15 +47,13 @@ private
 
       begin
          if ldap.bind
-            puts "Auth worked for #{username}"
             ok=true
          else
-            puts "Auth failed for #{username}"
             ok=false
          end
 
          rescue
-            puts "Ignoring exception: " + $!.to_s
+            puts "Ignoring LDAP exception: " + $!.to_s
       end
        
      return ok
