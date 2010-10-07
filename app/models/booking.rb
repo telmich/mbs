@@ -21,7 +21,6 @@ class Booking < ActiveRecord::Base
    def nodes_count(id=nil)
       # requested a specific nodes count?
       if id
-         puts "Retr nodes cound for " + MachineType.find(id).name
          if @nodes_count.nil?
             0
          else

@@ -4,6 +4,7 @@ Implement security
 Create "machine usage", as a combination of machines_free and
 machine_users
 
+
 Add logging support
 ~~~~~~~~~~~~~~~~~~~
 Log specific database changes?
@@ -19,3 +20,8 @@ Database cleanups
 Remove bookings from the past?
 
 
+--------------------------------------------------------------------------------
+New:
+   Use the usable flag
+   Change many machines (usable)<F3>es
+   Remove debug

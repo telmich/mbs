@@ -27,7 +27,6 @@ class BookingsController < ApplicationController
   # GET /bookings/new
   # GET /bookings/new.xml
   def new
-   puts "Entered in new here"
     @booking = Booking.new
     @booking.reservations.build
     @machines = Machine.all
