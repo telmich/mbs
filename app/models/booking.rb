@@ -55,8 +55,6 @@ class Booking < ActiveRecord::Base
       @nodes_count.each_pair do |type, count|
          typename = MachineType.find(type).name
 
-        puts "Searching " + count.to_s + " " + typename + " machines"
-
          count = count.to_i
          all_machines = MachineType.find(type).machines
 
@@ -69,7 +67,6 @@ class Booking < ActiveRecord::Base
                break if count == reservable_machines_count
 
                if machine.is_free?({:begin => self.begin, :end => self.end})
-                  puts "Adding machine " + machine.name + "for " + MachineType.find(type).name
                   reservable_machines_count += 1
                   @machines_to_book << { :machine_id => machine.id }
                end 
