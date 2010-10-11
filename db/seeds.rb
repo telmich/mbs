@@ -6,7 +6,7 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
-User.create( :name => 'nico' )
+#User.create( :name => 'nico' )
 
 mt = []
 mt << { :name => 'IKQ', :ram_gib => 2, :cores => 2, :cpu_type => "AMD Opteron 250 2.4Ghz", :count => 7, :description => "" } 

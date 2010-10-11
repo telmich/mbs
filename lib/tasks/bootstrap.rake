@@ -25,6 +25,6 @@ namespace :bootstrap do
    end
 
    desc "Run all bootstrapping tasks"
-   task :all => [:default_user, :machine_types]
+   task :all => [:machine_types]
 end
 
