@@ -1,9 +1,8 @@
 - do not remove bookings, but invalidate them (and record who did that)
 - only authenticate once, keep the authentication during the session?
 - only allow bookings to usable machines  => Use the usable flag
-- Setup correct booking Time (should be Now, not 2200)
 - Change many machines (usable) => maintenance
 - Deploy to sgv-rails-02 (from scratch!)
 - Add General purpose machines
 - document deployment (rvm installation etc). => blog/docs
-- redirect to error message, if ldap-server is not reachable
+- redirect to error message, if ldap-server is not reachablk

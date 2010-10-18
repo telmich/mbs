@@ -31,7 +31,7 @@ class BookingsController < ApplicationController
     @booking.reservations.build
     @machines = Machine.all
     @machine_types = MachineType.all
-    @booking.begin = Date.today
+    @booking.begin = DateTime.now
     @booking.end = @booking.begin + @@default_period
     @hints = []
 
