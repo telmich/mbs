@@ -14,20 +14,23 @@ class ApplicationController < ActionController::Base
 private
 
    def authorize
-      realm = "Use your nethz credentials"
+      # only authorize, if not already done
+      unless session[:user_id]
+         realm = "Use your nethz credentials"
 
-      # retry until we get a valid username
-      success = authenticate_or_request_with_http_basic realm do |username, password|
-         @username = username
-         nethz_auth username, password
-         #true
+         # retry until we get a valid username
+         success = authenticate_or_request_with_http_basic realm do |username, password|
+            @username = username
+            nethz_auth username, password
+            #true
+         end
+
+         # add user to db, if needed
+         @user = ensure_user_is_in_db @username
+         
+         # record id in session
+         session[:user_id] = @user.id
       end
-
-      # add user to db, if needed
-      @user = ensure_user_is_in_db @username
-      
-      # record id in session
-      session[:user_id] = @user.id
    end
 
    def ensure_user_is_in_db(username)

@@ -6,3 +6,4 @@
 - Deploy to sgv-rails-02 (from scratch!)
 - Add General purpose machines
 - document deployment (rvm installation etc). => blog/docs
+- redirect to error message, if ldap-server is not reachable
