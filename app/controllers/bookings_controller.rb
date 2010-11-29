@@ -92,7 +92,7 @@ class BookingsController < ApplicationController
 
     respond_to do |format|
       if @booking.update_attributes(@booking)
-        format.html { redirect_to(bookings_url, :notice => 'Booking ' + @booking.id + ' was successfully deleted.') }
+        format.html { redirect_to(bookings_url, :notice => 'Booking ' + @booking.id.to_s + ' was successfully deleted.') }
         format.xml  { head :ok }
       else
          # FIXME: do some sensible foo here
