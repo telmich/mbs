@@ -1,13 +1,10 @@
-- nethz tot => fehlernachricht
-
 - do not remove bookings, but invalidate them (and record who did that)
 - only allow bookings to usable machines  => Use the usable flag
    - add general purpose flag?
    - or type? machine_booking_type = { maintenance, bookable, general purpose }
+   - Add General purpose machines (how?)
 - Change many machines (usable) => maintenance
 - Deploy to sgv-rails-02 (from scratch!)
-- Add General purpose machines (how?)
-- document deployment (rvm installation etc). => blog/docs
-- redirect to error message, if ldap-server is not reachablk
+   - document deployment (rvm installation etc). => blog/docs
 - Only display active bookings
    - 2nd step: Add date range to select bookings
