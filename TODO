@@ -5,6 +5,8 @@
          - 1:n to machine!
    - Add General purpose machines (how?)
 - Change many machines (usable) => maintenance
+   - support mass updates
+   - later: can be done via console!
 - Deploy to sgv-rails-02 (from scratch!)
    - document deployment (rvm installation etc). => blog/docs
 - Only display active bookings
