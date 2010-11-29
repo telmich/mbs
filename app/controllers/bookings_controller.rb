@@ -88,12 +88,21 @@ class BookingsController < ApplicationController
     @booking = Booking.find(params[:id])
 
     @booking.modified_by = session[:user_id]
-
     @booking.existing = false
 
     respond_to do |format|
-      format.html { redirect_to(bookings_url) }
-      format.xml  { head :ok }
+      if @booking.update_attributes(@booking)
+        format.html { redirect_to(@booking, :notice => 'Booking was successfully deleted.') }
+        format.xml  { head :ok }
+      else
+         # FIXME: do some sensible foo here
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @booking.errors, :status => :unprocessable_entity }
+      end
     end
+    #respond_to do |format|
+    #  format.html { redirect_to(bookings_url) }
+    #  format.xml  { head :ok }
+    #end
   end
 end

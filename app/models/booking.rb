@@ -12,11 +12,21 @@ class Booking < ActiveRecord::Base
 
    validates_presence_of :begin
    validates_presence_of :end
-   validates_presence_of :nodes_count, :presence => true
 
-   validate :begin_lt_end, :machines_available
+   validate :begin_lt_end
+   validate :machines_available, :on => :create
+
+   # on create the reservations will be created by us
+   validates_presence_of :nodes_count, :presence => true, :on => :create
+
+   # on update the reservations must exist / no logic
+   validate :has_one_or_more_reservations, :on => :update
 
    @nodes_count = {}
+
+   def has_one_or_more_reservations
+      return ! reservations.empty?
+   end
 
    def nodes_count(id=nil)
       # requested a specific nodes count?

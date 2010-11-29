@@ -1,4 +1,10 @@
 / Do not remove bookings, but invalidate them (and record who did that)
+   - BROKEN: we do not submit nodes_count on delete
+      - probably remove nodes_count as it's broken?
+         - fail if zero machine booking (sum up?)
+         - map to model!
+      - probably use $whatever to setup booking.reservations array and test that?
+
 - only allow bookings to usable machines  => Use the usable flag
    - add general purpose flag?
    - or type?
