@@ -44,8 +44,6 @@ private
 
                # catch and stop processing
                rescue
-                  # format.html { redirect_to(@booking, :notice => 'Booking successfully created.') }
-                  # oder eigene html/error seite
                   render :text => "LDAP exception: " + $!.to_s
                   puts "LDAP exception: " + $!.to_s
                   return

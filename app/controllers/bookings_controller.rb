@@ -33,6 +33,7 @@ class BookingsController < ApplicationController
     @machine_types = MachineType.all
     @booking.begin = DateTime.now
     @booking.end = @booking.begin + @@default_period
+    @booking.valid = true
     @hints = []
 
     respond_to do |format|
@@ -87,7 +88,7 @@ class BookingsController < ApplicationController
 
     @booking.modified_by = session[:user_id]
 
-    #@booking.destroy
+    @booking.valid = false
 
     respond_to do |format|
       format.html { redirect_to(bookings_url) }
