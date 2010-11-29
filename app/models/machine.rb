@@ -1,8 +1,9 @@
 class Machine < ActiveRecord::Base
    validates :name, :uniqueness => true, :presence => true
 
-   has_many :reservations, :dependent => :destroy
-   belongs_to :machine_type
+   has_many    :reservations, :dependent => :destroy
+   has_many    :bookings, :through => :reservations
+   belongs_to  :machine_type
 
    validates_associated :machine_type
 

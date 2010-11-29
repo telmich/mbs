@@ -1,5 +1,6 @@
-- do not remove bookings, but invalidate them (and record who did that)
 - nethz tot => fehlernachricht
+
+- do not remove bookings, but invalidate them (and record who did that)
 - only allow bookings to usable machines  => Use the usable flag
    - add general purpose flag?
    - or type? machine_booking_type = { maintenance, bookable, general purpose }

@@ -14,25 +14,45 @@ class ApplicationController < ActionController::Base
 private
 
    def authorize
+      ldap = Net::LDAP.new
+
+      # FIXME: only one ldap-server supported!
+      ldap.host = "ldaps02.ethz.ch"
+      ldap.port = "636"
+      ldap.encryption :simple_tls
+
       # only authorize, if not already done
+      # retry until we get a valid username+password
       unless session[:user_id]
          realm = "Use your nethz credentials"
 
-         # retry until we get a valid username - FIXME: retry missing!
          success = authenticate_or_request_with_http_basic realm do |username, password|
-            @username = username
+            ldap.auth "cn=#{username},ou=users,ou=nethz,ou=id,ou=auth,o=ethz,c=ch", password
 
-            if nethz_auth username, password
-               # add user to db, if needed
-               @user = ensure_user_is_in_db @username
+            # rescue block
+            begin
+               # user has right credentials
+               if ldap.bind
+                  # add user to db, if needed
+                  @user = ensure_user_is_in_db username
 
-               # record id in session
-               session[:user_id] = @user.id
-            else
-               false
+                  # record id in session
+                  session[:user_id] = @user.id
+               else
+                  false
+               end
+
+               # catch and stop processing
+               rescue
+                  # format.html { redirect_to(@booking, :notice => 'Booking successfully created.') }
+                  # oder eigene html/error seite
+                  render :text => "LDAP exception: " + $!.to_s
+                  puts "LDAP exception: " + $!.to_s
+                  return
             end
          end
       end
+      puts "session: " + session[:user_id].to_s
    end
 
    def ensure_user_is_in_db(username)
@@ -43,27 +63,4 @@ private
       user
    end
 
-   def nethz_auth(username, password)
-      ldap = Net::LDAP.new
-      ldap.auth "cn=#{username},ou=users,ou=nethz,ou=id,ou=auth,o=ethz,c=ch", password
-      ldap.host = "ldaps02.ethz.ch"
-      ldap.port = "636"
-      ldap.encryption :simple_tls
-
-      begin
-         if ldap.bind
-            ok=true
-         else
-            ok=false
-         end
-
-         # FIXME: add real error handling!!!!
-         rescue
-            # format.html { redirect_to(@booking, :notice => 'Booking successfully created.') }
-            # oder eigene html/error seite
-            puts "Ignoring LDAP exception: " + $!.to_s
-      end
-       
-     return ok
-   end 
 end

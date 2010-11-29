@@ -84,7 +84,11 @@ class BookingsController < ApplicationController
   # DELETE /bookings/1.xml
   def destroy
     @booking = Booking.find(params[:id])
-    @booking.destroy
+
+    @booking.modified_by = session[:user_id]
+    @booking.usable = 
+
+    #@booking.destroy
 
     respond_to do |format|
       format.html { redirect_to(bookings_url) }
