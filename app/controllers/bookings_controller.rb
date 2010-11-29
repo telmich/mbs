@@ -86,7 +86,6 @@ class BookingsController < ApplicationController
     @booking = Booking.find(params[:id])
 
     @booking.modified_by = session[:user_id]
-    @booking.usable = 
 
     #@booking.destroy
 

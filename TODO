@@ -1,7 +1,9 @@
-- do not remove bookings, but invalidate them (and record who did that)
+- Do not remove bookings, but invalidate them (and record who did that)
 - only allow bookings to usable machines  => Use the usable flag
    - add general purpose flag?
-   - or type? machine_booking_type = { maintenance, bookable, general purpose }
+   - or type?
+      machine_booking_type = { maintenance, bookable, general purpose }
+         - 1:n to machine!
    - Add General purpose machines (how?)
 - Change many machines (usable) => maintenance
 - Deploy to sgv-rails-02 (from scratch!)
