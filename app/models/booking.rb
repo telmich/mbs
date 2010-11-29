@@ -97,4 +97,7 @@ class Booking < ActiveRecord::Base
       { :begin => dt, :end => dt + 1.day }
    end
 
+   def Booking.existing
+      Booking.where :existing => true
+   end
 end

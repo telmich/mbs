@@ -5,7 +5,7 @@ class BookingsController < ApplicationController
   # GET /bookings
   # GET /bookings.xml
   def index
-    @bookings = Booking.all
+    @bookings = Booking.existing
 
     respond_to do |format|
       format.html # index.html.erb
@@ -33,7 +33,6 @@ class BookingsController < ApplicationController
     @machine_types = MachineType.all
     @booking.begin = DateTime.now
     @booking.end = @booking.begin + @@default_period
-    @booking.valid = true
     @hints = []
 
     respond_to do |format|
@@ -51,6 +50,8 @@ class BookingsController < ApplicationController
    def create
       @booking = Booking.new(params[:booking])
       @booking.user_id = session[:user_id]
+      @booking.existing = true
+
       @machines = Machine.all
       @machine_types = MachineType.all
 
@@ -88,7 +89,7 @@ class BookingsController < ApplicationController
 
     @booking.modified_by = session[:user_id]
 
-    @booking.valid = false
+    @booking.existing = false
 
     respond_to do |format|
       format.html { redirect_to(bookings_url) }
