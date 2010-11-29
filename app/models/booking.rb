@@ -1,5 +1,6 @@
 class Booking < ActiveRecord::Base
    belongs_to :user
+   belongs_to :modifier, :class_name => "User", :foreign_key => "modified_by"
    has_many :reservations, :dependent => :destroy
 
    attr_writer :nodes_count

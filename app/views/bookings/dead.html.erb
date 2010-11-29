@@ -1,0 +1,31 @@
+<h2>Deleted Bookings</h2>
+<p class="notice"><%= notice %></p>
+<div class="recordset">
+
+<table>
+<thead>
+  <tr>
+    <th>User</th>
+    <th>Begin</th>
+    <th>End</th>
+    <th>Machines</th>
+    <th>Deleting user</th>
+  </tr>
+</thead>
+
+<tbody>
+<% @bookings.each do |booking| %>
+  <tr>
+    <td><%= booking.user.name %></td>
+    <td><%= booking.begin %></td>
+    <td><%= booking.end %></td>
+    <td><% booking.reservations.each do |reservation| %>
+    <%= reservation.machine.name %>
+    <%end%></td>
+    <td><%= booking.modifier.name %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+
+</div>

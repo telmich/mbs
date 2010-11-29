@@ -19,7 +19,7 @@ class BookingsController < ApplicationController
     @bookings = Booking.dead
 
     respond_to do |format|
-      format.html { render :action => "index" }
+      format.html
       format.xml  { render :xml => @bookings }
     end
   end
