@@ -18,18 +18,20 @@ private
       unless session[:user_id]
          realm = "Use your nethz credentials"
 
-         # retry until we get a valid username
+         # retry until we get a valid username - FIXME: retry missing!
          success = authenticate_or_request_with_http_basic realm do |username, password|
             @username = username
-            nethz_auth username, password
-            #true
-         end
 
-         # add user to db, if needed
-         @user = ensure_user_is_in_db @username
-         
-         # record id in session
-         session[:user_id] = @user.id
+            if nethz_auth username, password
+               # add user to db, if needed
+               @user = ensure_user_is_in_db @username
+
+               # record id in session
+               session[:user_id] = @user.id
+            else
+               false
+            end
+         end
       end
    end
 
@@ -55,7 +57,10 @@ private
             ok=false
          end
 
+         # FIXME: add real error handling!!!!
          rescue
+            # format.html { redirect_to(@booking, :notice => 'Booking successfully created.') }
+            # oder eigene html/error seite
             puts "Ignoring LDAP exception: " + $!.to_s
       end
        
