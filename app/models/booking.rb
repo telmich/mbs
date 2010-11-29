@@ -108,11 +108,26 @@ class Booking < ActiveRecord::Base
       { :begin => dt, :end => dt + 1.day }
    end
 
+   # Deleted bookings
    def Booking.dead
       Booking.where :existing => false
    end
 
+   # All existing (=non deleted) bookings
    def Booking.existing
       Booking.where :existing => true
    end
+   
+   def active
+      dt = DateTime.now
+
+      if (self.existing and self.begin <= dt and self.end >= dt)
+         true
+      else
+         false
+      end
+   end
+
+
+
 end
