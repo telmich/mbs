@@ -118,16 +118,6 @@ class Booking < ActiveRecord::Base
       Booking.where :existing => true
    end
    
-   def active
-      dt = DateTime.now
-
-      if (self.existing and self.begin <= dt and self.end >= dt)
-         true
-      else
-         false
-      end
-   end
-
-
+   scope :active, where("existing = 1 AND begin <= :dt AND end >= :dt", { :dt => DateTime.now })
 
 end
