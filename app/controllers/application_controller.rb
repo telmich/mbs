@@ -21,6 +21,9 @@ private
       ldap.port = "636"
       ldap.encryption :simple_tls
 
+      # offline hack
+      session[:user_id] = (User.find_by_name 'nicosc').id
+
       # only authorize, if not already done
       # retry until we get a valid username+password
       unless session[:user_id]
@@ -50,7 +53,6 @@ private
             end
          end
       end
-      puts "session: " + session[:user_id].to_s
    end
 
    def ensure_user_is_in_db(username)

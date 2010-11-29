@@ -13,6 +13,17 @@ class BookingsController < ApplicationController
     end
   end
 
+  # GET /bookings/dead
+  # GET /bookings/dead.xml
+  def dead
+    @bookings = Booking.dead
+
+    respond_to do |format|
+      format.html { render :action => "index" }
+      format.xml  { render :xml => @bookings }
+    end
+  end
+
   # GET /bookings/1
   # GET /bookings/1.xml
   def show
