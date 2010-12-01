@@ -1,7 +1,3 @@
-- Only display active bookings
-   - sqlite> select * from bookings where existing = 't';
-
-
 - only allow bookings to usable machines  => Use the usable flag
    - add general purpose flag?
    - or type?
@@ -10,6 +6,9 @@
       - Add General purpose machines (how?)
 
 - Display general purpose machines (!)
+
+- Add tab for expired bookings?
+   - expired, current, future, deleted
 
 - Deploy to sgv-rails-02 (from scratch!)
    - document deployment (rvm installation etc). => blog/docs/trac

@@ -5,7 +5,7 @@ class BookingsController < ApplicationController
   # GET /bookings
   # GET /bookings.xml
   def index
-    @bookings = Booking.existing
+    @bookings = Booking.active
 
     respond_to do |format|
       format.html # index.html.erb
