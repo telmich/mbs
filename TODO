@@ -1,4 +1,6 @@
 - Only display active bookings
+   - sqlite> select * from bookings where existing = 't';
+
 
 - only allow bookings to usable machines  => Use the usable flag
    - add general purpose flag?

@@ -118,6 +118,14 @@ class Booking < ActiveRecord::Base
       Booking.where :existing => true
    end
    
-   scope :active, where("existing = 1 AND begin <= :dt AND end >= :dt", { :dt => DateTime.now })
+   #scope :active, where("existing = :active AND begin <= :dt AND end >= :dt", { :dt => DateTime.now })
+   #scope :active, :conditions => { :existing => true, 
+   #scope :active, where(:existing => true,  :begin <= :dt AND end >= :dt", { :dt => DateTime.now })
 
+   #scope :active, where(["existing = ? AND begin <= ? AND end >= ?", true, { :dt => DateTime.now })
+   scope :active,
+      where("existing = :active AND begin <= :dt AND end >= :dt", {
+         :dt => DateTime.now,
+         :active => true
+         })
 end
