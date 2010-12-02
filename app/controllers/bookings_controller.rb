@@ -5,7 +5,8 @@ class BookingsController < ApplicationController
   # GET /bookings
   # GET /bookings.xml
   def index
-    @bookings = Booking.active
+    @bookings = Booking.current
+    @btitle = "Current"
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,13 +14,32 @@ class BookingsController < ApplicationController
     end
   end
 
-  # GET /bookings/dead
-  # GET /bookings/dead.xml
-  def dead
-    @bookings = Booking.dead
+  def deleted
+    @bookings = Booking.deleted
+    @btitle = "Deleted"
 
     respond_to do |format|
-      format.html
+      format.html { render :action => "index" }
+      format.xml  { render :xml => @bookings }
+    end
+  end
+
+  def expired
+    @bookings = Booking.expired
+    @btitle = "Expired"
+
+    respond_to do |format|
+      format.html { render :action => "index" }
+      format.xml  { render :xml => @bookings }
+    end
+  end
+
+  def future
+    @bookings = Booking.future
+    @btitle = "Future"
+
+    respond_to do |format|
+      format.html { render :action => "index" }
       format.xml  { render :xml => @bookings }
     end
   end

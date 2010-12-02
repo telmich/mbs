@@ -9,11 +9,15 @@
 <body>
 
 <div class="header">
-<%= link_to '[booking overview]', bookings_path %>
+[booking:
+   <%= link_to 'current |', bookings_path %>
+   <%= link_to 'deleted |', :controller=>"bookings", :action=>"deleted" %>
+   <%= link_to 'expired |', :controller=>"bookings", :action=>"expired" %>
+   <%= link_to 'future', :controller=>"bookings", :action=>"future" %>
+]
 <%= link_to '[new booking]', new_booking_path %>
 <%= link_to '[free machines]', machine_types_free_path %>
 <%= link_to '[used machines]', machines_used_by_path %>
-<%= link_to '[deleted bookings]', :controller=>"bookings", :action=>"dead" %>
 Logged in as <%= User.find(session[:user_id]).name %>
 </div>
 

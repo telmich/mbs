@@ -109,17 +109,24 @@ class Booking < ActiveRecord::Base
    end
 
    # Deleted bookings
-   def Booking.dead
+   def Booking.deleted
       Booking.where :existing => false
    end
 
-   # All existing (=non deleted) bookings
-   def Booking.existing
-      Booking.where :existing => true
-   end
-   
-   scope :active,
+   scope :current,
       where("existing = :active AND begin <= :dt AND end >= :dt", {
+         :dt => DateTime.now,
+         :active => true
+         })
+
+   scope :expired,
+      where("existing = :active AND end < :dt", {
+         :dt => DateTime.now,
+         :active => true
+         })
+
+   scope :future,
+      where("existing = :active AND begin > :dt", {
          :dt => DateTime.now,
          :active => true
          })

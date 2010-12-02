@@ -1,4 +1,4 @@
-<h2>Bookings</h2>
+<h2><%= @btitle %> Bookings</h2>
 <p class="notice"><%= notice %></p>
 <div class="recordset">
 
@@ -9,7 +9,8 @@
     <th>Begin</th>
     <th>End</th>
     <th>Machines</th>
-    <th></th>
+    <th>Modifier</th>
+    <th>Actions</th>
   </tr>
 </thead>
 
@@ -22,6 +23,7 @@
     <td><% booking.reservations.each do |reservation| %>
     <%= reservation.machine.name %>
     <%end%></td>
+    <td><%= booking.modifier ? booking.modifier.name : "" %></td>
     <td><%= link_to '[show]', booking %>
     <%= link_to '[destroy]', booking, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>

@@ -7,9 +7,6 @@
 
 - Display general purpose machines (!)
 
-- Add tab for expired bookings?
-   - expired, current, future, deleted
-
 - Deploy to sgv-rails-02 (from scratch!)
    - document deployment (rvm installation etc). => blog/docs/trac
    

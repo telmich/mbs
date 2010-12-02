@@ -11,7 +11,9 @@ Rdb::Application.routes.draw do |map|
   resources :reservations
 
   resources :bookings
-  match 'deleted_bookings' => 'bookings#dead'
+  match 'deleted_bookings' => 'bookings#deleted'
+  match 'expired_bookings' => 'bookings#expired'
+  match 'future_bookings' => 'bookings#future'
 
   resources :machines
 
