@@ -1,4 +1,6 @@
 Rdb::Application.routes.draw do |map|
+  resources :machine_statuses
+
   # Retrieve currently free machines
   get "machine_types/free"
 

@@ -1,0 +1,23 @@
+<h1>Listing machine_statuses</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @machine_statuses.each do |machine_status| %>
+  <tr>
+    <td><%= machine_status.name %></td>
+    <td><%= link_to 'Show', machine_status %></td>
+    <td><%= link_to 'Edit', edit_machine_status_path(machine_status) %></td>
+    <td><%= link_to 'Destroy', machine_status, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Machine status', new_machine_status_path %>
