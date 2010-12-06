@@ -8,6 +8,15 @@
 
 #User.create( :name => 'nico' )
 
+# create host types
+ms = [ "maintenance", "bookable", "general purpose" ]
+ms.each do |status|
+   mss = MachineStatus.create ({ :name => status })
+   puts "Created status " + mss.name + "\n"
+end 
+
+mbookable = MachineStatus.find_by_name "bookable"
+
 mt = []
 mt << { :name => 'IKQ', :ram_gib => 2, :cores => 2, :cpu_type => "AMD Opteron 250 2.4Ghz", :count => 7, :description => "" } 
 mt << { :name => 'IKR', :ram_gib => 4, :cores => 4, :cpu_type => "AMD Opteron 275 2.2Ghz", :count => 30, :description => "" } 
@@ -21,7 +30,12 @@ mt << { :name => 'sgs-r815-', :ram_gib => 128, :cores => 48, :cpu_type => "AMD O
 
 mt.each do |type|
    mtn = MachineType.create type
-   puts "Creating " + type[:name] + "\n"
+   puts "Created machine type " + mtn.name + "\n"
 end 
+
+# mark all as bookable
+Machine.all.each do |m|
+   m.machine_status =  MachineStatus.find_by_name "bookable"
+end
 
 

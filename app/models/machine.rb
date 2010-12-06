@@ -4,8 +4,9 @@ class Machine < ActiveRecord::Base
    has_many    :reservations, :dependent => :destroy
    has_many    :bookings, :through => :reservations
    belongs_to  :machine_type
-
    validates_associated :machine_type
+
+   belongs_to  :machine_status
 
    # need to remove this, to make it work with nested attributes
    # from machine_type!
