@@ -1,13 +1,6 @@
-1 only allow bookings to usable machines  => Use the usable flag
-   x or type?
-      machine_booking_type = { maintenance, bookable, general purpose }
-         MACHINE_STATUS = ...
-         - 1:n to machine!
-      - Add General purpose machines (how?)
-
-   - Display general purpose machines (!)
-
 2 add comment field to booking!
+
 
 3 Deploy to sgv-rails-02 (from scratch!)
    - document deployment (rvm installation etc). => blog/docs/trac
+   - cleanup
