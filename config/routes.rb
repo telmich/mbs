@@ -1,25 +1,24 @@
 Rdb::Application.routes.draw do |map|
   resources :machine_statuses
 
-  # Retrieve currently free machines
   get "machine_types/free"
-
-  get "machines/used_by"
-
   resources :machine_types
 
   resources :users
 
   resources :reservations
 
+  get 'bookings/deleted' => 'bookings#deleted'
+  get 'bookings/expired' => 'bookings#expired'
+  get 'bookings/future'  => 'bookings#future'
   resources :bookings
-  match 'deleted_bookings' => 'bookings#deleted'
-  match 'expired_bookings' => 'bookings#expired'
-  match 'future_bookings' => 'bookings#future'
 
+  get "machines/used_by"
+  get "machines/general_purpose"
   resources :machines
 
   match 'admin' => 'admin#index'
+
   #
   # The priority is based upon order of creation:
   # first created -> highest priority.

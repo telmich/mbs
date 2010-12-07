@@ -46,4 +46,18 @@ class Machine < ActiveRecord::Base
       
    end
 
+   def general_purpose?
+      machine_status == MachineStatus.find_by_name("general purpose")
+   end
+
+   # listing all general purpose
+   def Machine.general_purpose
+      list = []
+      Machine.all.each do |m|
+         m.general_purpose? and list << m
+      end
+
+      list
+   end
+
 end
