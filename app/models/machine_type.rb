@@ -36,6 +36,17 @@ class MachineType < ActiveRecord::Base
       end 
       self.machines_attributes = machines
    end
+
+   # all those which COULD be bookable from status point of view
+   def bookable
+      count = 0
+      machines.each do |m|
+         if m.machine_status == MachineStatus.find_by_name("bookable")
+            count += 1
+         end
+      end
+      count
+   end
       
    def free_machines
       count = 0

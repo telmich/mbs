@@ -24,7 +24,7 @@
 <thead>
    <tr class="header">
       <th>Book</th>
-      <th>#</th>
+      <th>Bookable (*)</th>
       <th>Type</th>
       <th>CPU</th>
       <th>Cores</th>
@@ -36,7 +36,7 @@
       <tr class="entry">
          <td><%= text_field_tag "booking[nodes_count][" + machine_type.id.to_s + "]",
                                  @booking.nodes_count(machine_type.id), :size => 2 %></td>
-         <td><%= machine_type.machines.length %></td>
+         <td><%= machine_type.bookable %></td>
          <td><%= machine_type.name %></td>
          <td><%= machine_type.cpu_type %></td>
          <td><%= machine_type.cores %></td>

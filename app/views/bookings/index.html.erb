@@ -25,7 +25,7 @@
     <%end%></td>
     <td><%= booking.modifier ? booking.modifier.name : "" %></td>
     <td><%= link_to '[show]', booking %>
-    <%= link_to '[destroy]', booking, :confirm => 'Are you sure?', :method => :delete %></td>
+    <%= link_to '[delete]', booking, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </tbody>

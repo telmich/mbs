@@ -1,6 +1,5 @@
 1 only allow bookings to usable machines  => Use the usable flag
-   - add general purpose flag?
-   - or type?
+   x or type?
       machine_booking_type = { maintenance, bookable, general purpose }
          MACHINE_STATUS = ...
          - 1:n to machine!
