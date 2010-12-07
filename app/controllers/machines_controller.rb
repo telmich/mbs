@@ -10,6 +10,15 @@ class MachinesController < ApplicationController
     end
   end
 
+  def general_purpose
+    @machines = Machine.general_purpose
+
+    respond_to do |format|
+      format.html
+      format.xml  { render :xml => @machines }
+    end
+  end
+
   # GET /machines/1
   # GET /machines/1.xml
   def show

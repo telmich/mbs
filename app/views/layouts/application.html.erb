@@ -18,12 +18,14 @@
 ]
 [<b>machines</b>:
 <%= link_to 'free |', machine_types_free_path %>
+<%= link_to 'general purpose', machines_general_purpose_path %>
 <%= link_to 'used', machines_used_by_path %>
 ]
 Logged in as <%= User.find(session[:user_id]).name %>
 </div>
 
 <%= yield %>
-
+<hr>
+mbs - Machine Booking System
 </body>
 </html>
