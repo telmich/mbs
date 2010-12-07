@@ -30,7 +30,11 @@ class Machine < ActiveRecord::Base
    end
 
    def is_free?(dates)
-      has_reservation?(dates) ? false : true
+      if machine_status == MachineStatus.find_by_name("bookable")
+         has_reservation?(dates) ? false : true
+      else
+         false
+      end
    end
 
    def used_by

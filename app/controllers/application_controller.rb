@@ -22,10 +22,12 @@ private
       ldap.encryption :simple_tls
 
       # offline hack
-      session[:user_id] = (User.find_by_name 'nicosc').id
+      #session[:user_id] = (User.find_by_name 'nicosc').id
 
       # only authorize, if not already done
       # retry until we get a valid username+password
+
+      # FIXME: does this break, if an attacker provides broken session data?
       unless session[:user_id]
          realm = "Use your nethz credentials"
 
