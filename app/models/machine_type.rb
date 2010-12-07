@@ -38,11 +38,10 @@ class MachineType < ActiveRecord::Base
    end
       
    def free_machines
-      mt = MachineType.find(self.id)
       count = 0
       dates = Booking.now
 
-      mt.machines.each do |machine|
+      machines.each do |machine|
          if machine.is_free?(dates)
             count += 1
          end
