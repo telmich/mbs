@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101203084206) do
+ActiveRecord::Schema.define(:version => 20101207155440) do
 
   create_table "bookings", :force => true do |t|
     t.integer  "user_id"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20101203084206) do
     t.datetime "end"
     t.integer  "modified_by"
     t.boolean  "existing"
+    t.string   "comment"
   end
 
   create_table "machine_statuses", :force => true do |t|

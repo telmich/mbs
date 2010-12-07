@@ -4,3 +4,10 @@
 3 Deploy to sgv-rails-02 (from scratch!)
    - document deployment (rvm installation etc). => blog/docs/trac
    - cleanup
+
+
+--------------------------------------------------------------------------------
+Feature requests:
+
+16:54 < dulli> doesn't necessarily be web 2.0. also a "static" time-machine diagram that get's updated on the server side (e.g., when applying filters/sorting like "show me bachs only, free machines between <time> and <time> on top) will be fine
+
