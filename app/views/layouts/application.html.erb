@@ -21,7 +21,7 @@
 <%= link_to 'general purpose', machines_general_purpose_path %>
 <%= link_to 'used', machines_used_by_path %>
 ]
-Logged in as <%= User.find(session[:user_id]).name %>
+Logged in as <%= @current_user_name %>
 </div>
 
 <%= yield %>

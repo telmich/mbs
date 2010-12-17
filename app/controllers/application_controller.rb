@@ -28,6 +28,7 @@ private
       ldap.host = "ldaps02.ethz.ch"
       ldap.port = "636"
       ldap.encryption :simple_tls
+      realm = "Use your nethz credentials"
 
       success = authenticate_or_request_with_http_basic realm do |username, password|
          ldap.auth "cn=#{username},ou=users,ou=nethz,ou=id,ou=auth,o=ethz,c=ch", password
