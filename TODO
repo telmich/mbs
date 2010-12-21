@@ -1,7 +1,3 @@
-2 Fix userid bug!
-   - Couldn't find User with ID=1
-   - 24: Logged in as <%= User.find(session[:user_id]).name %>
-   - 
 3 Deploy to sgv-rails-02 (from scratch!)
    - document deployment (rvm installation etc). => blog/docs/trac
    - cleanup
@@ -10,15 +6,16 @@
 --------------------------------------------------------------------------------
 Deploy:
 
-   - test unicorn/nginx setup
-   - ensure ssl is working
-   - verify
+   x test unicorn/nginx setup
+   x ensure ssl is working
+   x verify
    - rsync / deploy
    - update
-   - ~mbs/.ssh fehlt
+   - ~mbs/.ssh fehlt => login zu mbs nur via su, macht screen kaputt
    - unicorn_rails aus dem system läuft nicht
       - unicorn via rvm
       - unicorn_rails läuft im screen
+   - data backup
 
 
 --------------------------------------------------------------------------------
