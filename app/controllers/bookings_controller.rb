@@ -46,6 +46,7 @@ class BookingsController < ApplicationController
 
   def specific_machines
     @booking = Booking.new
+    @booking.reservations.build
     @types = MachineType.all
     @reservations = Reservation.new
     @typelist = {}
