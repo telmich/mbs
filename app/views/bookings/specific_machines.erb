@@ -16,13 +16,14 @@
    </tr>
 </thead>
 <tbody>
+<% @i=0 %>
 <%= f.fields_for :reservations do |r| %>
 <% @typelist.each_pair do |name, machines| %>
    <tr>
       <th><%= name %></th>
       <% machines.each do |machine| %>
-      <td><%= check_box_tag "booking[reservations_attributes][" + @reservation_index.to_s + "][machine_id]", machine.id %></td>
-      <% @reservation_index = @reservation_index+1%>
+      <td><%= check_box_tag "booking[reservations_attributes][" + @i.to_s + "][machine_id]", machine.id %></td>
+      <% @i = @i+1%>
       <% end %>
    </tr>
 <% end %>

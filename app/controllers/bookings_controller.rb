@@ -53,7 +53,7 @@ class BookingsController < ApplicationController
     @types = MachineType.all
     @reservations = Reservation.new
     @typelist = {}
-    @reservation_index = 0
+    @i = 0
     @max = 0
 
     @types.each do |type|
