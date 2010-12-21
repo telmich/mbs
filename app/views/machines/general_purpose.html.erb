@@ -1,0 +1,26 @@
+<h2>General purpose machines</h2>
+
+<P>Short list:
+<% @machines.each do |machine| %>
+   <%= machine.name %>
+<% end %>
+
+<div class="recordset">
+<table>
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>Type</th>
+  </tr>
+</thead>
+<tbody>
+
+<% @machines.each do |machine| %>
+  <tr>
+    <td><%= machine.name %></td>
+    <td><%= link_to machine.machine_type.name, machine_type_path(machine.machine_type_id) %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+</div>
