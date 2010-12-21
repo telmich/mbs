@@ -47,6 +47,9 @@ class BookingsController < ApplicationController
   def specific_machines
     @booking = Booking.new
     @booking.reservations.build
+    @booking.begin = DateTime.now
+    @booking.end = @booking.begin + @@default_period
+
     @types = MachineType.all
     @reservations = Reservation.new
     @typelist = {}
@@ -60,7 +63,6 @@ class BookingsController < ApplicationController
       end
     end
       
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @booking }
@@ -150,7 +152,7 @@ class BookingsController < ApplicationController
 
          @booking.reservations_attributes = @machines_to_book
       else
-         self.errors[:base] << "Zero machines selected"
+         @booking.errors[:base] << "Zero machines selected"
       end
 
       respond_to do |format|
