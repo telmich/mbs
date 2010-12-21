@@ -120,7 +120,7 @@ class BookingsController < ApplicationController
       # Locate machines, depends on nodes_count=
       @machines_to_book = []
 
-      # book nodes if count is submitted
+      # book nodes if count is submitted, search for nodes
       if @nodes_count
          @nodes_count.each_pair do |type, count|
             typename = MachineType.find(type).name

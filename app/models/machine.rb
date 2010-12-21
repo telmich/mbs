@@ -21,8 +21,10 @@ class Machine < ActiveRecord::Base
              (dates[:end] > existing_reservation.booking.begin and
               dates[:end] <= existing_reservation.booking.end)
 
-            reservation = existing_reservation
-            break
+            if reservation.booking.existing?
+               reservation = existing_reservation
+               break
+            end
          end
       end
 
