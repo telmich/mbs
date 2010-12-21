@@ -1,0 +1,38 @@
+<h2>New booking (specific machines)</h2>
+
+<%= form_for(@booking) do |f| %>
+<%= render :partial => "formheader", :locals => { :booking => @booking, :f => f } %>
+
+<div class=recordset>
+<table>
+
+<thead>
+   <tr class="header">
+      <th></th>
+      <% while @i <= @max %>
+      <th><%= sprintf("%0.2d",@i) %></th>
+      <% @i=@i+1 %>
+      <% end %>
+   </tr>
+</thead>
+<tbody>
+<%= f.fields_for :reservation do |r| %>
+<% @typelist.each_pair do |name, count| %>
+   <tr>
+      <th><%= name %></th>
+      <% @i = 0 %>
+      <% while @i < count %>
+      <!-- BUG HERE -->
+      <td><%= r.check_box :machine_id, {}, @i %></td>
+      <% @i=@i+1 %>
+      <% end %>
+   </tr>
+<% end %>
+<% end %>
+</table>
+</div>
+<div class="actions">
+ <%= f.submit %>
+</div>
+
+<%end%>

@@ -8,6 +8,7 @@ Rdb::Application.routes.draw do |map|
 
   resources :reservations
 
+  get 'bookings/specific_machines' => 'bookings#specific_machines'
   get 'bookings/deleted' => 'bookings#deleted'
   get 'bookings/expired' => 'bookings#expired'
   get 'bookings/future'  => 'bookings#future'

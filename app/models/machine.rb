@@ -50,7 +50,7 @@ class Machine < ActiveRecord::Base
       machine_status == MachineStatus.find_by_name("general purpose")
    end
 
-   # listing all general purpose
+   # listing all general purpose - FIXME: why not scope?
    def Machine.general_purpose
       list = []
       Machine.all.each do |m|

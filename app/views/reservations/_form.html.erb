@@ -11,21 +11,25 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :begin %><br />
-    <%= f.datetime_select :begin %>
-  </div>
-  <div class="field">
-    <%= f.label :end %><br />
-    <%= f.datetime_select :end %>
-  </div>
-  <div class="field">
     <%= f.label :machine_id %><br />
-    <%= f.text_field :machine_id %>
+    <%= f.collection_select(:machine_id, Machine.all, :id, :name, {:prompt => true}) %>
   </div>
-  <div class="field">
-    <%= f.label :booking_id %><br />
-    <%= f.text_field :booking_id %>
-  </div>
+   <%= f.fields_for :booking do |b| %>
+
+     <div class="field">
+       <%= b.label :begin %><br />
+       <%= b.datetime_select :begin %>
+     </div>
+     <div class="field">
+       <%= b.label :end %><br />
+       <%= b.datetime_select :end %>
+     </div>
+     <div class="field">
+       <%= b.label :comment %><br />
+       <%= b.text_field :comment %>
+     </div> 
+   <% end %>
+
   <div class="actions">
     <%= f.submit %>
   </div>

@@ -44,6 +44,28 @@ class BookingsController < ApplicationController
     end
   end
 
+  def specific_machines
+    @booking = Booking.new
+    @types = MachineType.all
+    @reservations = Reservation.new
+    @typelist = {}
+    @i = 1
+    @max = 0
+
+    @types.each do |type|
+      @typelist[type[:name]] = type.machines.length
+      if @typelist[type[:name]] > @max
+         @max = @typelist[type[:name]]
+      end
+    end
+      
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.xml  { render :xml => @booking }
+    end
+  end
+
   # GET /bookings/1
   # GET /bookings/1.xml
   def show
