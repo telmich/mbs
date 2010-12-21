@@ -3,6 +3,10 @@ class Booking < ActiveRecord::Base
    belongs_to :modifier, :class_name => "User", :foreign_key => "modified_by"
    has_many :reservations, :dependent => :destroy
 
+   # FIXME: why did I not use this?
+   # validates_associated  :user
+
+
    # allow submit of nodes_count hash from the view
    attr_writer :nodes_count
 
@@ -11,18 +15,12 @@ class Booking < ActiveRecord::Base
 
    # validations are run in order of appereance!
    validates_presence_of :user_id, :presence => true, :message => "User missing"
-   # FIXME: why did I not use this?
-#   validates_associated  :user
 
    validates_presence_of :begin
    validates_presence_of :end
 
    validate :begin_lt_end
-   validate :machines_selected
-
-   # FIXME: did I ever put this into production?
-   # on update the reservations must exist / no logic
-   validate :has_one_or_more_reservations, :on => :update
+   validate :has_one_or_more_reservations
 
    def has_one_or_more_reservations
       return ! reservations.empty?
@@ -56,16 +54,6 @@ class Booking < ActiveRecord::Base
    # depends on begin= and end=
    def begin_lt_end
       errors[:base] << "End should be after begin." if (self.begin >= self.end)
-   end
-
-   def machines_selected
-      if reservations
-         if reservations.empty?
-            self.errors[:base] << "Zero machines selected"
-         end
-      else
-         self.errors[:base] << "Zero machines selected"
-      end
    end
 
    # return "current" booking time: now + 1 day
