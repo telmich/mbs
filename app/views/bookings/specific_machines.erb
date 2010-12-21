@@ -21,7 +21,7 @@
    <tr>
       <th><%= name %></th>
       <% machines.each do |machine| %>
-      <td><%= r.check_box :machine_id %></td>
+      <td><%= check_box_tag "booking[reservations_attributes][0][machine_id]", machine.id %></td>
       <% end %>
    </tr>
 <% end %>
