@@ -3,28 +3,26 @@ class Booking < ActiveRecord::Base
    belongs_to :modifier, :class_name => "User", :foreign_key => "modified_by"
    has_many :reservations, :dependent => :destroy
 
+   # allow submit of nodes_count hash from the view
    attr_writer :nodes_count
 
+   # allow direct creation of reservations
    accepts_nested_attributes_for :reservations
 
    # validations are run in order of appereance!
    validates_presence_of :user_id, :presence => true, :message => "User missing"
+   # FIXME: why did I not use this?
 #   validates_associated  :user
 
    validates_presence_of :begin
    validates_presence_of :end
 
    validate :begin_lt_end
-   #validate :machines_available, :on => :create
    validate :machines_selected
 
-   # on create the reservations will be created by us
-   validates_presence_of :nodes_count, :presence => true, :on => :create
-
+   # FIXME: did I ever put this into production?
    # on update the reservations must exist / no logic
    validate :has_one_or_more_reservations, :on => :update
-
-   @nodes_count = {}
 
    def has_one_or_more_reservations
       return ! reservations.empty?
@@ -60,7 +58,6 @@ class Booking < ActiveRecord::Base
       errors[:base] << "End should be after begin." if (self.begin >= self.end)
    end
 
-   # depends on nodes_count=
    def machines_selected
       if reservations
          if reservations.empty?
