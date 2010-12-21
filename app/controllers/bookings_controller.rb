@@ -81,10 +81,54 @@ class BookingsController < ApplicationController
    def create
       @booking = Booking.new(params[:booking])
       @booking.user_id = session[:user_id]
+
+      # setup nodes count
+      @nodes_count = params[:booking][:nodes_count]
+
+      puts "session/user: " + @booking.user_id.to_s
+
       @booking.existing = true
 
       @machines = Machine.all
       @machine_types = MachineType.all
+
+      # Locate machines, depends on nodes_count=
+      @machines_to_book = []
+
+      # book nodes if count is submitted
+      if @nodes_count
+         @nodes_count.each_pair do |type, count|
+            typename = MachineType.find(type).name
+
+            count = count.to_i
+            all_machines = MachineType.find(type).machines
+
+            if count > all_machines.count
+               @booking.errors[:base] << "Trying to book more " + typename + "s than existing."
+            else
+               reservable_machines_count = 0 
+               all_machines.each do |machine|
+                  break if count == reservable_machines_count
+
+                  if machine.is_free?({:begin => @booking.begin, :end => @booking.end})
+                     reservable_machines_count += 1
+                     @machines_to_book << { :machine_id => machine.id }
+                  end
+               end 
+
+               if count != reservable_machines_count
+                  @booking.errors[:base] << "Only " + reservable_machines_count.to_s + " " + MachineType.find(type).name + "(s) available at the choosen date."
+
+                  # be nice to the user and set the count to what is available
+                  @nodes_count[type] = reservable_machines_count
+               end
+            end
+         end
+
+         @booking.reservations_attributes = @machines_to_book
+      else
+         self.errors[:base] << "Zero machines selected"
+      end
 
       respond_to do |format|
          if @booking.save

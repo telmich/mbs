@@ -8,14 +8,15 @@ class Booking < ActiveRecord::Base
    accepts_nested_attributes_for :reservations
 
    # validations are run in order of appereance!
-   validates_presence_of :user_id, :presence => true, :message => "Foo"
+   validates_presence_of :user_id, :presence => true, :message => "User missing"
 #   validates_associated  :user
 
    validates_presence_of :begin
    validates_presence_of :end
 
    validate :begin_lt_end
-   validate :machines_available, :on => :create
+   #validate :machines_available, :on => :create
+   validate :machines_selected
 
    # on create the reservations will be created by us
    validates_presence_of :nodes_count, :presence => true, :on => :create
@@ -60,44 +61,13 @@ class Booking < ActiveRecord::Base
    end
 
    # depends on nodes_count=
-   def machines_available
-      @machines_to_book = []
-
-      @nodes_count.each_pair do |type, count|
-         typename = MachineType.find(type).name
-
-         count = count.to_i
-         all_machines = MachineType.find(type).machines
-
-         if count > all_machines.count
-            self.errors[:base] << "Trying to book more " + typename + "s than existing."
-         else
-
-            reservable_machines_count = 0 
-            all_machines.each do |machine|
-               break if count == reservable_machines_count
-
-               if machine.is_free?({:begin => self.begin, :end => self.end})
-                  reservable_machines_count += 1
-                  @machines_to_book << { :machine_id => machine.id }
-               end 
-
+   def machines_selected
+      if reservations
+         if reservations.empty?
+            self.errors[:base] << "Zero machines selected"
          end
-
-         if count != reservable_machines_count
-            self.errors[:base] << "Only " + reservable_machines_count.to_s + " " + MachineType.find(type).name + "(s) available at the choosen date."
-
-            # be nice to the user and set the count to what is available
-            @nodes_count[type] = reservable_machines_count
-         end 
-
-         end
-      end
-
-      if @machines_to_book.empty?
-         self.errors[:base] << "Zero machines selected"
       else
-         self.reservations_attributes = @machines_to_book
+         self.errors[:base] << "Zero machines selected"
       end
    end
 
