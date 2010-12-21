@@ -11,8 +11,19 @@
 # 
 # 
 
-   desc "Run all migration tasks"
-   task :all => [:general_purpose]
+   desc "Transfer free machines"
+   task :free_machines => :environment do
+      Machine.find(:all, :conditions=> ["name like ?", "bach%"]).each do |m|
+         m.machine_status =  MachineStatus.find_by_name("bookable")
+         m.save
+      end
+
+      Machine.find(:all, :conditions=> ["name like ?", "dryad%"]).each do |m|
+         m.machine_status =  MachineStatus.find_by_name("bookable")
+         m.save
+      end
+
+   end
 
 #    desc "Transfer project bookings"
 #    task :project_bookings => :environment do
@@ -25,20 +36,24 @@
    desc "Transfer General purpose machines"
    task :general_purpose => :environment do
 
-      Machine.find (:all, :conditions=> ["name like ?", "ikq%"]).each do |m|
+      Machine.find(:all, :conditions=> ["name like ?", "ikq%"]).each do |m|
          m.machine_status =  MachineStatus.find_by_name ("general purpose")
          m.save
       end
 
-      Machine.find (:all, :conditions=> ["name like ?", "incredibles%"]).each do |m|
+      Machine.find(:all, :conditions=> ["name like ?", "incredibles%"]).each do |m|
          m.machine_status =  MachineStatus.find_by_name ("general purpose")
          m.save
       end
 
-      Machine.find (:all, :conditions=> ["name like ?", "shrek%"]).each do |m|
+      Machine.find(:all, :conditions=> ["name like ?", "shrek%"]).each do |m|
          m.machine_status =  MachineStatus.find_by_name ("general purpose")
          m.save
       end
 
    end
+
+   desc "Run all migration tasks"
+   task :all => [:general_purpose, :free_machines]
+
 end
