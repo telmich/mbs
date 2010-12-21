@@ -25,6 +25,9 @@
     <%= f.label :usable %><br />
     <%= f.check_box :usable, :checked => true %>
   </div>
+  <div class="field">
+   <%= collection_select(:machine, :machine_status_id, MachineStatus.all, :id, :name, {:prompt => true}) %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
