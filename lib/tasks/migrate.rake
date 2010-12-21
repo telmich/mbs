@@ -23,15 +23,11 @@
          m.save
       end
 
-   end
+      m = Machine.find_by_name("sgs-r815-01")
+      m.machine_status =  MachineStatus.find_by_name("bookable")
+      m.save
 
-#    desc "Transfer project bookings"
-#    task :project_bookings => :environment do
-#       Machine.find (:all, :conditions=> ["name like ?", "ikr%"]).each do |m|
-#          m.machine_status =  MachineStatus.find_by_name("bookable")
-#          m.save
-#       end
-#    end
+   end
 
    desc "Transfer General purpose machines"
    task :general_purpose => :environment do
