@@ -54,9 +54,9 @@ class BookingsController < ApplicationController
     @max = 0
 
     @types.each do |type|
-      @typelist[type[:name]] = type.machines.length
-      if @typelist[type[:name]] > @max
-         @max = @typelist[type[:name]]
+      @typelist[type[:name]] = type.machines
+      if @typelist[type[:name]].length > @max
+         @max = @typelist[type[:name]].length
       end
     end
       

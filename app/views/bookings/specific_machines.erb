@@ -17,14 +17,11 @@
 </thead>
 <tbody>
 <%= f.fields_for :reservations do |r| %>
-<% @typelist.each_pair do |name, count| %>
+<% @typelist.each_pair do |name, machines| %>
    <tr>
       <th><%= name %></th>
-      <% @i = 0 %>
-      <% while @i < count %>
-      <!-- BUG HERE -->
+      <% machines.each do |machine| %>
       <td><%= r.check_box :machine_id %></td>
-      <% @i=@i+1 %>
       <% end %>
    </tr>
 <% end %>
