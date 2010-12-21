@@ -23,7 +23,7 @@ class Booking < ActiveRecord::Base
    validate :has_one_or_more_reservations
 
    def has_one_or_more_reservations
-      return ! reservations.empty?
+      errors[:base] << "No machine selected" if (reservations.nil? or reservations.empty?)
    end
 
    def nodes_count(id=nil)
