@@ -4,10 +4,6 @@ Rdb::Application.routes.draw do |map|
   get "machine_types/free"
   resources :machine_types
 
-  resources :users
-
-  resources :reservations
-
   get 'bookings/specific_machines' => 'bookings#specific_machines'
   get 'bookings/deleted' => 'bookings#deleted'
   get 'bookings/expired' => 'bookings#expired'
