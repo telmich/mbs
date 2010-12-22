@@ -4,6 +4,8 @@ Bugs:
    - takes deleted bookings into account!!
       -> reservations still exist!
 
+   - specific_machines: what if selected, but not free?
+
 --------------------------------------------------------------------------------
 
 3 Deploy to sgv-rails-02 (from scratch!)
