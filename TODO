@@ -9,6 +9,20 @@ Bugs:
       - mysql or nfs copy?
 
    - check views, remove unecessary / dangerous functions
+      - bookings/edit.html.erb: re-enable to edit comments!
+      bookings/_footer.erb: remove?
+      bookings/_header.erb: remove?
+      bookings/index.html.erb: add edit
+         -> record modifier!
+      machines/edit.html.erb: add modified_by to machines or remove.
+      machine_statuses/edit.html.erb: add modified_by or remove
+      machine_types/edit.html.erb: add modified_by or remove
+      reservation/*: remove, is only a helping table!
+      user/*: remove, is only used internally
+
+   - check controllers
+      DELETE does not have a view => check in controllers or disable
+
    - status: shared|exclusive?
 
    - specific_machines: what if selected, but not free?
