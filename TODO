@@ -4,7 +4,34 @@ Bugs:
    - takes deleted bookings into account!!
       -> reservations still exist!
 
+   - ssl / nginx
+   - db-backup
+      - mysql or nfs copy?
+
+   - check views, remove unecessary / dangerous functions
+   - status: shared|exclusive?
+
    - specific_machines: what if selected, but not free?
+
+   - Notifications: expiry => reinstallation
+   - user has root access
+   - reinstall mozart/nis nodes
+      => have status bit for that?
+      => machine changes like bookings/specific_machines
+         => set flags, etc.
+   - move bach nodes with debian to ubuntu
+   - include amadeus01
+   - include eightmile
+   - fixe installationen auf maschinen (petfisch)
+      - "teilbar" währen ungenutzt
+   - delete funktion
+   - move session-id to server
+      - session on client is untrusted
+   - remove machine.usable
+      - is in machinstatus
+
+   - 0/1 => true / false auf id!
+      -> checkbox enthält machine_id
 
 --------------------------------------------------------------------------------
 
