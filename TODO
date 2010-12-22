@@ -30,9 +30,6 @@ Bugs:
    - remove machine.usable
       - is in machinstatus
 
-   - 0/1 => true / false auf id!
-      -> checkbox enthält machine_id
-
 --------------------------------------------------------------------------------
 
 3 Deploy to sgv-rails-02 (from scratch!)
