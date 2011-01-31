@@ -1,29 +1,24 @@
 class Machine < ActiveRecord::Base
-   validates :name, :uniqueness => true, :presence => true
-
-   has_many    :reservations, :dependent => :destroy
-   has_many    :bookings, :through => :reservations
-   belongs_to  :machine_type
-   validates_associated :machine_type
 
    belongs_to  :machine_status
+   belongs_to  :machine_type
+   has_many    :reservations, :dependent => :destroy
+   has_many    :bookings, :through => :reservations
 
-   # need to remove this, to make it work with nested attributes
-   # from machine_type!
-#   validates :machine_type_id, :presence => true
+   validates :name, :uniqueness => true, :presence => true
+   validates_associated :machine_type
 
-   def has_reservation?(dates)
-      reservation = nil
 
-      reservations.each do |existing_reservation|
-         if (existing_reservation.booking.begin <= dates[:begin] and
-             existing_reservation.booking.end > dates[:begin]) or
-             (dates[:end] > existing_reservation.booking.begin and
-              dates[:end] <= existing_reservation.booking.end)
+   def is_booked?(dates)
+      booked = nil
 
-            # Verify that the booking still exists
-            if existing_reservation.booking.existing?
-               reservation = existing_reservation
+      bookings.each do |booking|
+         if (booking.begin <= dates[:begin] and booking.end > dates[:begin]) or
+             (dates[:end] > booking.begin and dates[:end] <= booking.end)
+
+            # Verify that the booking still exists (i.e. not deleted)
+            if booking.existing?
+               booked = booking
                break
             end
          end
@@ -34,19 +29,18 @@ class Machine < ActiveRecord::Base
 
    def is_free?(dates)
       if machine_status == MachineStatus.find_by_name("bookable")
-         has_reservation?(dates) ? false : true
+         is_booked?(dates) ? false : true
       else
          false
       end
    end
 
    def used_by
-      reservation = has_reservation? Booking.now
+      booking = is_booked? Booking.now
 
-      if reservation
-         reservation.booking.user.name
+      if booking
+         booking.user.name
       end
-      
    end
 
    def general_purpose?
