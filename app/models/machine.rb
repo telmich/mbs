@@ -24,7 +24,7 @@ class Machine < ActiveRecord::Base
          end
       end
 
-      reservation
+      booked
    end
 
    def is_free?(dates)
