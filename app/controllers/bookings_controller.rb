@@ -104,14 +104,15 @@ class BookingsController < ApplicationController
    # POST /bookings
    # POST /bookings.xml
    def create
+
+      # setup passed values
       @booking = Booking.new(params[:booking])
       @booking.user_id = session[:user_id]
-
-      # setup nodes count
       @nodes_count = params[:booking][:nodes_count]
 
       puts "session/user: " + @booking.user_id.to_s
 
+      # Mark booking existing (vs. deleted)
       @booking.existing = true
 
       @machines = Machine.all
@@ -120,7 +121,7 @@ class BookingsController < ApplicationController
       # Locate machines, depends on nodes_count=
       @machines_to_book = []
 
-      # book nodes if count is submitted, search for nodes
+      # Search for nodes if a count is submitted (vs. node ids submitted)
       if @nodes_count
          @nodes_count.each_pair do |type, count|
             typename = MachineType.find(type).name
@@ -142,10 +143,13 @@ class BookingsController < ApplicationController
                end 
 
                if count != reservable_machines_count
-                  @booking.errors[:base] << "Only " + reservable_machines_count.to_s + " " + MachineType.find(type).name + "(s) available at the choosen date."
+                  @booking.errors.add(:base, "Only " + reservable_machines_count.to_s + " " + MachineType.find(type).name + "(s) available at the choosen date.")
 
                   # be nice to the user and set the count to what is available
                   @nodes_count[type] = reservable_machines_count
+
+                  puts "CANNOT SATISFY COUNT"
+                  puts @booking.errors[:base]
                end
             end
          end

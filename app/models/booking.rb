@@ -27,6 +27,10 @@ class Booking < ActiveRecord::Base
       errors[:base] << "No machine selected" if (reservations.nil? or reservations.empty?)
    end
 
+   def nodes_count=(count)
+      @nodes_count=count
+   end
+
    def nodes_count(id=nil)
       # requested a specific nodes count?
       if id
