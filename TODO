@@ -3,12 +3,15 @@ Bugs:
    - error No machine selected, if machine not available!
    - takes deleted bookings into account!!
       -> reservations still exist!
+   - Allows direct booking of the same machine multiple times!
+      - via specific_machines!
 
    - ssl / nginx
    - db-backup
       - mysql or nfs copy?
 
    - check views, remove unecessary / dangerous functions
+      - also remove routes! (or only)
       - bookings/edit.html.erb: re-enable to edit comments!
       bookings/_footer.erb: remove?
       bookings/_header.erb: remove?

@@ -1,20 +1,21 @@
 class Booking < ActiveRecord::Base
+   # WARNING: validations are run in order of appereance!
+   
    belongs_to :user
    belongs_to :modifier, :class_name => "User", :foreign_key => "modified_by"
    has_many :reservations, :dependent => :destroy
 
-   # FIXME: why did I not use this?
-   # validates_associated  :user
-
+   # User verification, must always be present!
+   # user vs user_id:
+   # http://stackoverflow.com/questions/3755828/ruby-on-rails-question-about-validates-presence-of
+   validates_presence_of :user, :presence => true, :message => "User missing"
+   validates_associated  :user
 
    # allow submit of nodes_count hash from the view
    attr_writer :nodes_count
 
    # allow direct creation of reservations
    accepts_nested_attributes_for :reservations
-
-   # validations are run in order of appereance!
-   validates_presence_of :user_id, :presence => true, :message => "User missing"
 
    validates_presence_of :begin
    validates_presence_of :end
