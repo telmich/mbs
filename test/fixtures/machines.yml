@@ -3,9 +3,7 @@
 one:
   title: MyString
   description: MyText
-  usable: false
 
 two:
   title: MyString
   description: MyText
-  usable: false

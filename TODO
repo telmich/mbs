@@ -42,8 +42,6 @@ Bugs:
    - delete funktion
    - move session-id to server
       - session on client is untrusted
-   - remove machine.usable
-      - is in machinstatus
 
 --------------------------------------------------------------------------------
 
