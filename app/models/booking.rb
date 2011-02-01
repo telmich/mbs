@@ -26,6 +26,7 @@ class Booking < ActiveRecord::Base
    before_validation :create_reservations
 
    def has_one_or_more_reservations
+      puts "has_one_or_more_reservations: " + reservations.to_s
       errors[:base] << "No machine selected" if (reservations.nil? or reservations.empty?)
    end
 
@@ -96,7 +97,7 @@ class Booking < ActiveRecord::Base
 
                   if machine.is_free?({:begin => self.begin, :end => self.end})
                      reservable_machines_count += 1
-                     machines_to_book << { :machine_id => machine.id }
+                     machines_to_book << machine
                   end 
                end 
 
@@ -105,16 +106,17 @@ class Booking < ActiveRecord::Base
 
                   # be nice to the user and set the count to what is available
                   nodes_count[type] = reservable_machines_count
-
-                  # puts "CANNOT SATISFY COUNT"
-                  # puts errors[:base]
                end 
             end 
          end 
 
-         reservations_attributes = machines_to_book
-      else
-         errors[:base] << "Zero machines selected"
+         # Setup REAL reservations independent of previous errors
+         # (they cause abort anyway and we do not trigger the "no machines booked"
+         # message
+         self.reservations = []
+         machines_to_book.each do |m|
+            self.reservations << Reservation.new(:machine_id => m.id)
+         end
       end
    end
 
