@@ -4,7 +4,7 @@
   <tr>
     <th>Title</th>
     <th>Description</th>
-    <th>Usable</th>
+    <th>Status</th>
     <th>Used by?</th>
     <th>Type</th>
     <th></th>
@@ -16,7 +16,7 @@
   <tr>
     <td><%= machine.name %></td>
     <td><%= machine.description %></td>
-    <td><%= machine.usable %></td>
+    <td><%= machine.machine_status.name %></td>
     <td><%= machine.used_by %></td>
     <td><%= link_to machine.machine_type.name, machine_type_path(machine.machine_type_id) %></td>
     <td><%= link_to 'Show', machine %></td>
