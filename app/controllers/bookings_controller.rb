@@ -115,50 +115,54 @@ class BookingsController < ApplicationController
       # Mark booking existing (vs. deleted)
       @booking.existing = true
 
-      @machines = Machine.all
-      @machine_types = MachineType.all
-
-      # Locate machines, depends on nodes_count=
-      @machines_to_book = []
-
-      # Search for nodes if a count is submitted (vs. node ids submitted)
-      if @nodes_count
-         @nodes_count.each_pair do |type, count|
-            typename = MachineType.find(type).name
-
-            count = count.to_i
-            all_machines = MachineType.find(type).machines
-
-            if count > all_machines.count
-               @booking.errors[:base] << "Trying to book more " + typename + "s than existing."
-            else
-               reservable_machines_count = 0 
-               all_machines.each do |machine|
-                  break if count == reservable_machines_count
-
-                  if machine.is_free?({:begin => @booking.begin, :end => @booking.end})
-                     reservable_machines_count += 1
-                     @machines_to_book << { :machine_id => machine.id }
-                  end
-               end 
-
-               if count != reservable_machines_count
-                  @booking.errors.add(:base, "Only " + reservable_machines_count.to_s + " " + MachineType.find(type).name + "(s) available at the choosen date.")
-
-                  # be nice to the user and set the count to what is available
-                  @nodes_count[type] = reservable_machines_count
-
-                  puts "CANNOT SATISFY COUNT"
-                  puts @booking.errors[:base]
-               end
-            end
-         end
-
-         @booking.reservations_attributes = @machines_to_book
-      else
-         @booking.errors[:base] << "Zero machines selected"
-      end
-
+       @machines = Machine.all
+       @machine_types = MachineType.all
+# 
+#       # Locate machines, depends on nodes_count=
+#       @machines_to_book = []
+# 
+#       # Search for nodes if a count is submitted (vs. node ids submitted)
+#       if @nodes_count
+#          @nodes_count.each_pair do |type, count|
+#             typename = MachineType.find(type).name
+# 
+#             count = count.to_i
+#             all_machines = MachineType.find(type).machines
+# 
+#             if count > all_machines.count
+#                @booking.errors[:base] << "Trying to book more " + typename + "s than existing."
+#             else
+#                reservable_machines_count = 0 
+#                all_machines.each do |machine|
+#                   break if count == reservable_machines_count
+# 
+#                   if machine.is_free?({:begin => @booking.begin, :end => @booking.end})
+#                      reservable_machines_count += 1
+#                      @machines_to_book << { :machine_id => machine.id }
+#                   end
+#                end 
+# 
+#                if count != reservable_machines_count
+#                   @booking.errors.add(:base, "Only " + reservable_machines_count.to_s + " " + MachineType.find(type).name + "(s) available at the choosen date.")
+# 
+#                   # be nice to the user and set the count to what is available
+#                   @nodes_count[type] = reservable_machines_count
+# 
+#                   puts "CANNOT SATISFY COUNT"
+#                   puts @booking.errors[:base]
+#                end
+#             end
+#          end
+# 
+#          @booking.reservations_attributes = @machines_to_book
+#       else
+#          @booking.errors[:base] << "Zero machines selected"
+#       end
+# 
+#       puts "isvalid? " + @booking.valid?.to_s
+#       puts "size " + @booking.errors.size.to_s
+#       puts "errors " + @booking.errors.to_s
+# 
       respond_to do |format|
          if @booking.save
             format.html { redirect_to(@booking, :notice => 'Booking successfully created.') }

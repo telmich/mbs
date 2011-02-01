@@ -23,12 +23,10 @@ class Booking < ActiveRecord::Base
    validate :begin_lt_end
    validate :has_one_or_more_reservations
 
+   before_validation :create_reservations
+
    def has_one_or_more_reservations
       errors[:base] << "No machine selected" if (reservations.nil? or reservations.empty?)
-   end
-
-   def nodes_count=(count)
-      @nodes_count=count
    end
 
    def nodes_count(id=nil)
@@ -71,6 +69,53 @@ class Booking < ActiveRecord::Base
    # Deleted bookings
    def Booking.deleted
       Booking.where :existing => false
+   end
+
+   def create_reservations
+     # Mark booking existing (vs. deleted)
+      machines = Machine.all
+      machine_types = MachineType.all
+
+      # Locate machines, depends on nodes_count=
+      machines_to_book = []
+
+      # Search for nodes if a count is submitted (vs. node ids submitted)
+      if nodes_count
+         nodes_count.each_pair do |type, count|
+            typename = MachineType.find(type).name
+
+            count = count.to_i
+            all_machines = MachineType.find(type).machines
+
+            if count > all_machines.count
+               errors[:base] << "Trying to book more " + typename + "s than existing."
+            else
+               reservable_machines_count = 0 
+               all_machines.each do |machine|
+                  break if count == reservable_machines_count
+
+                  if machine.is_free?({:begin => self.begin, :end => self.end})
+                     reservable_machines_count += 1
+                     machines_to_book << { :machine_id => machine.id }
+                  end 
+               end 
+
+               if count != reservable_machines_count
+                  errors[:base] <<"Only " + reservable_machines_count.to_s + " " + MachineType.find(type).name + "(s) available at the choosen date."
+
+                  # be nice to the user and set the count to what is available
+                  nodes_count[type] = reservable_machines_count
+
+                  # puts "CANNOT SATISFY COUNT"
+                  # puts errors[:base]
+               end 
+            end 
+         end 
+
+         reservations_attributes = machines_to_book
+      else
+         errors[:base] << "Zero machines selected"
+      end
    end
 
    scope :current,
