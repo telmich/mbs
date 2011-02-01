@@ -12,10 +12,10 @@ class MachineType < ActiveRecord::Base
 
    before_save :create_machines
 
-   attr_accessor :description
+   attr_accessor :machine_description
 
    @machines = []
-   @description = ""
+   @machine_description = ""
 
    def count
       self.machines.count
@@ -25,16 +25,20 @@ class MachineType < ActiveRecord::Base
       @count=input
    end
 
+   # autocreate, mostly used during seeding
    def create_machines
       i = 1
-      machines = []
+      self.machines = []
+      status = MachineStatus.find_by_name("bookable")
 
       while i <= @count.to_i
          name = sprintf "%s%0.2d", self.name.downcase, i
-         machines << { :name => name, :description => @description, :usable => true } 
+         self.machines << Machine.new({ :name => name,
+                                       :description => @machine_description,
+                                       :machine_status => status
+                                    })
          i += 1
       end 
-      self.machines_attributes = machines
    end
 
    # all those which COULD be bookable from status point of view
