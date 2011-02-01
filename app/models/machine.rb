@@ -7,6 +7,7 @@ class Machine < ActiveRecord::Base
 
    validates :name, :uniqueness => true, :presence => true
    validates_associated :machine_type
+   validates_associated :machine_status
 
 
    def is_booked?(dates)
