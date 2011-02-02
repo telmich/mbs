@@ -8,7 +8,7 @@
 
 <thead>
    <tr class="header">
-      <th></th>
+      <th>Cluster</th>
       <% @i=1 %>
       <% while @i <= @max %>
       <th><%= sprintf("%0.2d",@i) %></th>
@@ -23,12 +23,17 @@
    <tr>
       <th><%= name %></th>
       <% machines.each do |machine| %>
-      <td><%= check_box_tag "booking[reservations_attributes][" + @i.to_s + "][machine_id]", machine.id %></td>
-      <% @i = @i+1%>
+        <td><%= check_box_tag "booking[reservations_attributes][" + @i.to_s + "][machine_id]", machine.id %></td>
+        <% @i = @i+1%>
       <% end %>
+      <% while @i < @max %>
+        <td> &nbsp;</td> <% @i = @i+1%>
+      <%end%>
+      <%@i=0%>
    </tr>
 <% end %>
 <% end %>
+</tbody>
 </table>
 </div>
 <div class="actions">
