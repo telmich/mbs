@@ -12,7 +12,8 @@ Rdb::Application.routes.draw do |map|
 
   get "machines/used_by"
   get "machines/general_purpose"
-  resources :machines
+  get "machines/index"
+  # resources :machines
 
   match 'admin' => 'admin#index'
 
