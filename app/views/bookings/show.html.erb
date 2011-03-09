@@ -2,7 +2,8 @@
 
 <p>
   User <b><%= @booking.user.name %></b> booked the following machines
-  as booking <b><%= @booking.id %></b>:
+  as booking <b><%= @booking.id %></b> from <b><%= @booking.begin %></b> until
+  <b><%= @booking.end %></b>
   <ul>
   <% @booking.reservations.each do |reservation| %>
   <li><%= reservation.machine.name %>
