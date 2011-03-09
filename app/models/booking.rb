@@ -26,7 +26,6 @@ class Booking < ActiveRecord::Base
    before_validation :create_reservations
 
    def has_one_or_more_reservations
-      puts "has_one_or_more_reservations: " + reservations.to_s
       errors[:base] << "No machine selected" if (reservations.nil? or reservations.empty?)
    end
 
