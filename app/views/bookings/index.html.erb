@@ -5,6 +5,7 @@
 <table>
 <thead>
   <tr>
+    <th>ID</th>
     <th>User</th>
     <th>Comment</th>
     <th>Begin</th>
@@ -18,6 +19,7 @@
 <tbody>
 <% @bookings.each do |booking| %>
   <tr>
+    <td><%= booking.id %></td>
     <td><%= booking.user.name %></td>
     <td><%= booking.comment %></td>
     <td><%= booking.begin %></td>
