@@ -11,12 +11,19 @@ class ApplicationController < ActionController::Base
 
    before_filter :authorize
    before_filter :current_user_name
+   before_filter :version
 
 
    def current_user_name
       u = User.find(session[:user_id])
 
       @current_user_name = u ? u.name : "NO USERNAME - MBS BROKEN"
+   end
+
+   def version
+      if ! defined? @version
+         @version = `git describe`
+      end
    end
 
 private
