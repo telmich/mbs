@@ -54,10 +54,11 @@ class Machine < ActiveRecord::Base
                #      -----> conflict
                #
                
-            # Verify that the booking still exists (i.e. not deleted)
-            if booking.existing?
-               booked = booking
-               break
+               # Verify that the booking still exists (i.e. not deleted)
+               if booking.existing?
+                  booked = booking
+                  break
+               end
             end
          end
       end
