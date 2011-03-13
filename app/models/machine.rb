@@ -29,7 +29,7 @@ class Machine < ActiveRecord::Base
       # Idea:
       #
       # - Does the new booking begin after our end?
-         if (dates[:begin] >= booking.end)
+         if (dates[:begin] > booking.end)
             #
             #  yes: no conflict possible with this booking
             #
@@ -42,7 +42,7 @@ class Machine < ActiveRecord::Base
             #
             # Does the booking end before our begin?
             #
-            if (dates[:end] <= booking.begin)
+            if (dates[:end] < booking.begin)
                #
                #  yes: no conflict possible with this booking
                #
